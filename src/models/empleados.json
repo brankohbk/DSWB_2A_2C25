@@ -1,20 +1,14 @@
 [
   {
-    "nombre": "Julio Ricardo Moneda",
-    "rol": "administrador",
-    "area": "Facturación",
-    "id": 1757872753107
-  },
-  {
-    "nombre": "Mariana Monedero",
-    "rol": "administrador",
-    "area": "Facturación",
-    "id": 1757873659773
-  },
-  {
-    "nombre": "Carlos Corazón",
+    "nombre": "Carlos A. Corazón",
     "rol": "médico",
     "area": "Atención Médica",
-    "id": 1757874113459
+    "id": "6bd6c6c5-f0e8-4e3f-9e40-c0b3b98dd418"
+  },
+  {
+    "nombre": "Mariana Pulmón",
+    "rol": "médico",
+    "area": "Atención Médica",
+    "id": "27c33b13-a4bc-478c-8d74-eb7ec123ed1c"
   }
 ]

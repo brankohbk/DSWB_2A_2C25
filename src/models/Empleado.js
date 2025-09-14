@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { v4 as uuidv4 } from 'uuid'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,7 +12,8 @@ export class Empleado {
     this.nombre = nombre;
     this.rol = rol;
     this.area = area;
-    this.id = Date.now();
+    //this.id = Date.now(); // No es recomendable porque no garantiza unicidad, especialmente para proyectos grandes.
+    this.id = uuidv4();
   }
 
   static async getAll() {
@@ -45,12 +47,12 @@ export class Empleado {
 
   static async findById(id) {
     const empleados = await this.getAll();
-    return empleados.find(emp => emp.id == id);
+    return empleados.find(emp => emp.id === id);
   }
 
   static async update(id, newData) {
     const empleados = await this.getAll();
-    const empleadoIndex = empleados.findIndex(emp => emp.id == id);
+    const empleadoIndex = empleados.findIndex(emp => emp.id === id);
     if (empleadoIndex === -1) {
       return null; // Empleado no encontrado
     }
@@ -62,7 +64,7 @@ export class Empleado {
 
   static async delete(id) {
     const empleados = await this.getAll();
-    const empleadosRestantes = empleados.filter(emp => emp.id != id);
+    const empleadosRestantes = empleados.filter(emp => emp.id !== id);
     if (empleados.length === empleadosRestantes.length) {
       return false; // No se encontró ningún empleado con ese ID
     }

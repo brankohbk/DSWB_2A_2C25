@@ -11,25 +11,25 @@ POST http://localhost:4500/api/empleados
 Content-Type: application/json
 
 {
-  "nombre": "Carlos Corazón",
+  "nombre": "Mariana Pulmón",
   "rol": "médico",
   "area": "Atención Médica"
 }
 ###
 
 ### Recuperar un empleado por ID
-GET http://localhost:4500/api/empleados/1757872753107
+GET http://localhost:4500/api/empleados/6bd6c6c5-f0e8-4e3f-9e40-c0b3b98dd418
 ###
 
 ### Actualizar un dato de un empleado con PUT
-PUT http://localhost:4500/api/empleados/1757873659773
+PUT http://localhost:4500/api/empleados/6bd6c6c5-f0e8-4e3f-9e40-c0b3b98dd418
 Content-Type: application/json
 
 {
-  "nombre": "Mariana Monedero"
+  "nombre": "Carlos A. Corazón"
 }
 ###
 
 ### Borrar un empleado con DELETE
-DELETE http://localhost:4500/api/empleados/1757873973452
+DELETE http://localhost:4500/api/empleados/0d3d0f27-3713-4010-8dd9-649f1db40b09
 ###
