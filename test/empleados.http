@@ -1,0 +1,35 @@
+### Verificar que el servidor está corriendo
+GET http://localhost:4500/
+###
+
+### Recuperar todos los empleados
+GET http://localhost:4500/api/empleados
+###
+
+### Crear un empleado con POST
+POST http://localhost:4500/api/empleados
+Content-Type: application/json
+
+{
+  "nombre": "Carlos Corazón",
+  "rol": "médico",
+  "area": "Atención Médica"
+}
+###
+
+### Recuperar un empleado por ID
+GET http://localhost:4500/api/empleados/1757872753107
+###
+
+### Actualizar un dato de un empleado con PUT
+PUT http://localhost:4500/api/empleados/1757873659773
+Content-Type: application/json
+
+{
+  "nombre": "Mariana Monedero"
+}
+###
+
+### Borrar un empleado con DELETE
+DELETE http://localhost:4500/api/empleados/1757873973452
+###

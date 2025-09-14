@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "nombre": "Julio Ricardo Moneda",
+    "rol": "administrador",
+    "area": "Facturación",
+    "id": 1757872753107
+  },
+  {
+    "nombre": "Mariana Monedero",
+    "rol": "administrador",
+    "area": "Facturación",
+    "id": 1757873659773
+  },
+  {
+    "nombre": "Carlos Corazón",
+    "rol": "médico",
+    "area": "Atención Médica",
+    "id": 1757874113459
+  }
+]
