@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import empleadosRoutes from './src/routes/empleadosRoutes.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 4501;
-
 const app = express();
 
 app
@@ -19,6 +19,9 @@ app
   .get('/', (req, res) => {
     res.send('¡Servidor de la clínica funcionando!');
   })
+
+// Rutas de empleados
+  .use('/api/empleados', empleadosRoutes)
 
 // Inicia el servidor
   .listen(PORT, () => {
