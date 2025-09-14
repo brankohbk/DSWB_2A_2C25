@@ -1,12 +1,23 @@
 import { Router } from 'express';
-import { getAllEmpleados, createEmpleado } from '../controllers/empleadosController.js';
+import { getAllEmpleados, createEmpleado, getEmpleadoById, updateEmpleado, deleteEmpleado } from '../controllers/empleadosController.js';
 
 const router = Router();
 
-// GET /api/empleados
-router.get('/', getAllEmpleados);
 
-// POST /api/empleados
-router.post('/', createEmpleado);
+router
+// GET /api/empleados
+  .get('/', getAllEmpleados)
+
+// POST /api/empleados (nuevo empleado)
+  .post('/', createEmpleado)
+
+// GET empleado by ID
+  .get('/:id', getEmpleadoById)
+
+// PUT update empleado
+  .put('/:id', updateEmpleado)
+
+// DELETE empleado
+  .delete('/:id', deleteEmpleado);
 
 export default router;

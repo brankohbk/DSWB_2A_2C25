@@ -25,9 +25,48 @@ export class Empleado {
     }
   }
 
+  /*
   static async save(empleado) {
     const empleados = await this.getAll();
     empleados.push(empleado);
     await fs.writeFile(empleadosFilePath, JSON.stringify(empleados, null, 2));
+  }
+  */
+
+  static async saveAll(empleados) {
+    await fs.writeFile(empleadosFilePath, JSON.stringify(empleados, null, 2));
+  }
+
+  static async create(empleado) {
+    const empleados = await this.getAll();
+    empleados.push(empleado);
+    await this.saveAll(empleados);
+  }
+
+  static async findById(id) {
+    const empleados = await this.getAll();
+    return empleados.find(emp => emp.id == id);
+  }
+
+  static async update(id, newData) {
+    const empleados = await this.getAll();
+    const empleadoIndex = empleados.findIndex(emp => emp.id == id);
+    if (empleadoIndex === -1) {
+      return null; // Empleado no encontrado
+    }
+    const updatedEmpleado = { ...empleados[empleadoIndex], ...newData };
+    empleados[empleadoIndex] = updatedEmpleado;
+    await this.saveAll(empleados);
+    return updatedEmpleado;
+  }
+
+  static async delete(id) {
+    const empleados = await this.getAll();
+    const empleadosRestantes = empleados.filter(emp => emp.id != id);
+    if (empleados.length === empleadosRestantes.length) {
+      return false; // No se encontró ningún empleado con ese ID
+    }
+    await this.saveAll(empleadosRestantes);
+    return true; // Eliminación exitosa
   }
 }
