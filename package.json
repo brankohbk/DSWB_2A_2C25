@@ -1,0 +1,28 @@
+{
+  "name": "dswb_2a_2c25",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "watch": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brankohbk/DSWB_2A_2C25.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brankohbk/DSWB_2A_2C25/issues"
+  },
+  "homepage": "https://github.com/brankohbk/DSWB_2A_2C25#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "17.2.2",
+    "express": "^5.1.0",
+    "pug": "^3.0.3"
+  },
+  "type": "module"
+}
