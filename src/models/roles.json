@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "nombre": "administrador"
+  },
+  {
+    "id": 2,
+    "nombre": "médico"
+  },
+  {
+    "id": 3,
+    "nombre": "recepcionista"
+  },
+  {
+    "id": 4,
+    "nombre": "encargado de stock"
+  }
+]
