@@ -1,0 +1,45 @@
+### Listar todos los turnos
+GET http://localhost:4501/api/turnos
+Content-Type: application/json
+
+###
+
+### Obtener un turno por ID
+GET http://localhost:4501/api/turnos/90ed1a4e-f82d-4cb5-8ba4-8bdd8c4385b3
+Content-Type: application/json
+
+###
+
+### Crear un nuevo turno
+POST http://localhost:4501/api/turnos
+Content-Type: application/json
+
+{
+  "pacienteId": 3,
+  "empleadoId": 103,
+  "fechaInicio": "2025-09-20T10:00:00",
+  "fechaFin": "2025-09-20T10:30:00",
+  "prioridad": "baja",
+  "estado": "pendiente",
+  "observaciones": "Consultorio 1"
+}
+
+###
+
+### Actualizar un turno existente
+PUT http://localhost:4501/api/turnos/f61b1941-91cb-45d5-a7ea-6e4fed37805d
+Content-Type: application/json
+
+{   "pacienteId": 1,
+    "empleadoId": 101,
+  "fechaInicio": "2025-09-20T11:00:00",
+  "fechaFin": "2025-09-20T11:30:00",
+  "prioridad": "alta",
+  "estado": "en proceso"
+}
+
+###
+
+### Eliminar un turno por ID
+DELETE http://localhost:4501/api/turnos/dce6d55f-b742-4d6b-9481-9e5c8a603214
+Content-Type: application/json

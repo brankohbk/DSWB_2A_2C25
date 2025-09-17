@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import empleadosRoutes from './src/routes/empleadosRoutes.js';
+import turnosRouter from './src/routes/TurnosRouters.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 4501;
@@ -22,6 +23,9 @@ app
 
 // Rutas de empleados
   .use('/api/empleados', empleadosRoutes)
+
+   // Rutas de turnos
+  .use('/api/turnos', turnosRouter)  
 
 // Inicia el servidor
   .listen(PORT, () => {
