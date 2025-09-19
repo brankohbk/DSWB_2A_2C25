@@ -1,0 +1,38 @@
+DOCTYPE HTML 
+HTML   
+    head 
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        title #{title}
+    body
+        script.
+            // forms: POST/PUT con redirect
+            document.addEventListener('submit', async (e)=>{
+                const f = e.target;
+                if (!f.hasAttribute('data-ajax')) return;
+                e.preventDefault();
+                const url = f.action;
+                const method = (new URL(url, location)).searchParams.get('_method') || f.method || 'post';
+                const body = JSON.stringify(Object.fromEntries(new FormData(f)));
+                const res = await fetch(url, { method: method.toUpperCase(), headers:{'Content-Type':'application/json'}, body });
+                if (res.ok) location.href = f.getAttribute('data-redirect') || '/';
+                else alert('Error: ' + (await res.text()));
+            });
+
+            // delete links
+            document.addEventListener('click', async (e)=>{
+                const a = e.target.closest('[data-del]');
+                if (!a) return;
+                e.preventDefault();
+                if (!confirm('¿Eliminar?')) return;
+                const res = await fetch(a.getAttribute('data-del'), { method:'DELETE' });
+                if (res.ok) location.reload();
+                else alert('Error: ' + (await res.text()));
+            });
+    nav
+        a(href='/') Inicio
+        |  · 
+        a(href='/empleados') Empleados
+        |  · 
+        a(href='/turnos') Turnos
+    block content

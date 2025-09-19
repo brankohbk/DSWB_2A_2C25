@@ -1,14 +1,26 @@
 [
   {
-    "nombre": "Carlos A. Corazón",
-    "rol": "médico",
-    "area": "Atención Médica",
-    "id": "6bd6c6c5-f0e8-4e3f-9e40-c0b3b98dd418"
-  },
-  {
     "nombre": "Mariana Pulmón",
-    "rol": "médico",
+    "rol": "Médico",
     "area": "Atención Médica",
     "id": "27c33b13-a4bc-478c-8d74-eb7ec123ed1c"
+  },
+  {
+    "nombre": "Pedro Andrés Corazón",
+    "rol": "Médico",
+    "area": "Atención Médica",
+    "id": "b1c63a6f-f0ca-4783-848d-b4b1941328e7"
+  },
+  {
+    "nombre": "Fabian Pablo Hernández",
+    "rol": "Gerente",
+    "area": "Comercial",
+    "id": "b7151ce2-eaf7-4216-bc36-b586fc55f416"
+  },
+  {
+    "nombre": "Karina Coleman",
+    "rol": "Administrativa",
+    "area": "Recepción",
+    "id": "21aee23a-a486-4656-9079-dd831e974396"
   }
 ]

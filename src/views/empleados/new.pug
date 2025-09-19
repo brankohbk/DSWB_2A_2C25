@@ -1,0 +1,15 @@
+extends ../layout 
+block content 
+    h1 #{title}
+    form(data-ajax data-redirect='/empleados' method='post', action='/api/empleados')
+        label Nombre
+        input(type='text', name='nombre', required)
+        br
+        label Rol
+        input(type='text', name='rol', required)
+        br
+        label Área
+        input(type='text', name='area', required)
+        br
+        button(type='submit') Guardar
+        

@@ -1,0 +1,33 @@
+extends ../layout
+block content
+    h1 Editar turno
+    form(data-ajax data-redirect='/turnos' method='post', action=`/api/turnos/${turno.id}?_method=PUT`)
+        label Paciente ID
+        input(type='number', name='pacienteId', required, value=turno.pacienteId)
+        br
+        label Empleado ID
+        input(type='number', name='empleadoId', required, value=turno.empleadoId)
+        br
+        label Inicio
+        input(type='datetime-local', name='fechaInicio', required, value=turno.fechaInicio.slice(0,16))
+        br
+        label Fin
+        input(type='datetime-local', name='fechaFin', required, value=turno.fechaFin.slice(0,16))
+        br
+        label Prioridad
+        select(name='prioridad')
+            option(value='alta', selected=turno.prioridad==='alta') alta
+            option(value='media', selected=turno.prioridad==='media') media
+            option(value='baja', selected=turno.prioridad==='baja') baja
+        br
+        label Estado
+        select(name='estado')
+            option(value='pendiente', selected=turno.estado==='pendiente') pendiente
+            option(value='en proceso', selected=turno.estado==='en proceso') en proceso
+            option(value='finalizado', selected=turno.estado==='finalizado') finalizado
+        br
+        label Observaciones
+        input(type='text', name='observaciones', value=turno.observaciones)
+        br
+        button(type='submit') Guardar cambios
+        a(href='/turnos') Cancelar

@@ -1,33 +1,51 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import methodOverride from 'method-override';
+
 import empleadosRoutes from './src/routes/empleadosRoutes.js';
 import turnosRouter from './src/routes/TurnosRouters.js';
+import viewRouters from './src/routes/viewRoutes.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 4501;
 const app = express();
+const _filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(_filename);
+
 
 app
 // Middleware para procesar JSON y datos de formularios
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
 
+// Middleware para permitir el uso de metodos PUT y DELETE
+  .use(methodOverride('_method'))
+
 // Configuración de Pug como motor de plantillas para front
   .set('view engine', 'pug')
-  .set('views', './src/views')
-  
-// Middleware de prueba para verificar que el servidor funciona
-  .get('/', (req, res) => {
-    res.send('¡Servidor de la clínica funcionando!');
-  })
+  .set ('views', path.join(__dirname, 'src','views'))
 
 // Rutas de empleados
   .use('/api/empleados', empleadosRoutes)
 
-   // Rutas de turnos
-  .use('/api/turnos', turnosRouter)  
+ // Rutas de turnos
+  .use('/api/turnos', turnosRouter)
+
+// Rutas de vistas
+  .use('/', viewRouters)
+  //404/500:
+  .use((req, res, next) => {
+    res.status(404).render('404',{title:'No encontrado'});
+  })
+  .use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).render('500',{title:'Error', err});
+  })
 
 // Inicia el servidor
   .listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
   });
+  

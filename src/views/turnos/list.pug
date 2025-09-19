@@ -1,0 +1,34 @@
+extends ../layout
+block content
+    h1 Turnos
+    a(href='/turnos/nuevo') + Nuevo
+    if turnos && turnos.length
+        table(border='1' cellpadding='6')
+            thead
+                tr
+                    th ID
+                    th Paciente
+                    th Empleado
+                    th Inicio
+                    th Fin
+                    th Prioridad
+                    th Estado
+                    th Obs.
+            tbody
+                each t in turnos
+                    tr
+                        td= t.id
+                        td= t.pacienteId
+                        td= t.empleadoId
+                        td= new Date(t.fechaInicio).toLocaleString('es-AR')
+                        td= new Date(t.fechaFin).toLocaleString('es-AR')
+                        td= t.prioridad
+                        td= t.estado
+                        td= t.observaciones
+                        td 
+                            a(href=`/turnos/${t.id}/actualizar`) Actualizar
+                            |   . 
+                            form(data-ajax data-redirect='/turnos' method='post', action = `api/turnos/${t.id}?_method=DELETE`)
+                                button(type= 'submit') Eliminar
+    else
+        p No hay turnos.

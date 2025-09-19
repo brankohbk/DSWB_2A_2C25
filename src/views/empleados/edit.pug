@@ -1,0 +1,15 @@
+extends ../layout
+block content
+    h1 #{title}
+    form(data-ajax data-redirect='/empleados' method='post', action=`/api/empleados/${empleado.id}?_method=PUT`)
+        label Nombre
+        input(type='text', name='nombre', required, value=empleado.nombre)
+        br
+        label Rol
+        input(type='text', name='rol', required, value=empleado.rol)
+        br
+        label Área
+        input(type='text', name='area', required, value=empleado.area)
+        br
+        button(type='submit') Guardar cambios
+        a(href='/empleados') Cancelar
