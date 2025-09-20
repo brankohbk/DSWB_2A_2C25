@@ -21,9 +21,9 @@ block content
                                 td= e.area 
                                 td(class="txt-wrap")= e.id
                                 td 
-                                    a(href= `/empleados/${e.id}/editar`, class="btn") ✍🏻 Editar
+                                    a(href= `/empleados/${e.id}/editar`, class="btn btn-yellow") ✍🏻 Editar
                                 td
                                     form(data-ajax data-redirect='/empleados' method='post',action=`/api/empleados/${e.id}?_method=DELETE`, style='display:inline')
-                                        button(type='submit', class="btn") 🗑️ Eliminar
+                                        button(type='submit', class="btn btn-red") 🗑️ Eliminar
     else 
         p No hay empleados.

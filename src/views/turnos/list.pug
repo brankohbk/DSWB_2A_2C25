@@ -21,17 +21,17 @@ block content
                     each t in turnos
                         tr
                             td(class="txt-wrap")= t.id
-                            td= t.pacienteId
-                            td= t.empleadoId
+                            td(class="txt-wrap")= t.pacienteId
+                            td(class="txt-wrap")= t.empleadoId
                             td= new Date(t.fechaInicio).toLocaleString('es-AR')
                             td= new Date(t.fechaFin).toLocaleString('es-AR')
                             td= t.prioridad
                             td= t.estado
                             td= t.observaciones
                             td 
-                                a(href=`/turnos/${t.id}/actualizar`, class="btn") ✍🏻 Editar
+                                a(href=`/turnos/${t.id}/actualizar`, class="btn btn-yellow") ✍🏻 Editar
                             td
                                 form(data-ajax data-redirect='/turnos' method='post', action = `api/turnos/${t.id}?_method=DELETE`)
-                                    button(type='submit', class="btn") 🗑️ Eliminar
+                                    button(type='submit', class="btn btn-red") 🗑️ Eliminar
     else
         p No hay turnos.

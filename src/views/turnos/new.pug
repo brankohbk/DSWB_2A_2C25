@@ -1,32 +1,40 @@
 extends ../layout
 block content
-    h1 #{title}
+    h2 #{title}
     form(data-ajax data-redirect='/turnos' method='post', action='/api/turnos')
-        label Paciente ID
-        input(type='number', name='pacienteId', required)
-        br
-        label Empleado ID
-        input(type='number', name='empleadoId', required)
-        br
-        label Inicio
-        input(type='datetime-local', name='fechaInicio', required)
-        br
-        label Fin
-        input(type='datetime-local', name='fechaFin', required)
-        br
-        label Prioridad
-        select(name='prioridad')
-            option(value='alta') alta
-            option(value='media') media
-            option(value='baja') baja
-        br
-        label Estado
-        select(name='estado')
-            option(value='pendiente') pendiente
-            option(value='en proceso') en proceso
-            option(value='finalizado') finalizado
-        br
-        label Observaciones
-        input(type='text', name='observaciones')
-        br
-        button(type='submit') Guardar
+        label 
+            span Paciente ID
+            input(type='number', name='pacienteId', required)
+        label
+            span Empleado ID
+            if empleados && empleados.length
+                select(name='empleadoId', required)
+                    option(value='', selected) Seleccione 
+                    each e in empleados
+                        option(value=e.id)= `${e.nombre} - ${e.id}`
+                    
+            else
+                p No hay empleados cargados
+        label
+            span Inicio
+            input(type='datetime-local', name='fechaInicio', required)
+        label
+            span Fin
+            input(type='datetime-local', name='fechaFin', required)
+        label
+            span Prioridad
+            select(name='prioridad')
+                option(value='alta') alta
+                option(value='media') media
+                option(value='baja') baja
+        label
+            span Estado
+            select(name='estado')
+                option(value='pendiente') pendiente
+                option(value='en proceso') en proceso
+                option(value='finalizado') finalizado
+        label
+            span Observaciones
+            input(type='text', name='observaciones')
+        a(href='/turnos', class="btn btn-red") ❌ Cancelar
+        button(type='submit', class="btn btn-green btn-guardar") ✅ Guardar
