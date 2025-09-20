@@ -24,6 +24,6 @@ block content
                                     a(href= `/empleados/${e.id}/editar`, class="btn btn-yellow") ✍🏻 Editar
                                 td
                                     form(data-ajax data-redirect='/empleados' method='post',action=`/api/empleados/${e.id}?_method=DELETE`, style='display:inline')
-                                        button(type='submit', class="btn btn-red") 🗑️ Eliminar
+                                        button(type='submit', class="btn btn-red", onclick=`return confirm("¿Seguro que quiere eliminar el empleado ${e.nombre} ?")`) 🗑️ Eliminar
     else 
         p No hay empleados.
