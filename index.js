@@ -26,6 +26,7 @@ app
 // Configuración de Pug como motor de plantillas para front
   .set('view engine', 'pug')
   .set ('views', path.join(__dirname, 'src','views'))
+  .use(express.static(path.join(__dirname, 'public')))
 
 // Rutas de empleados
   .use('/api/empleados', empleadosRoutes)

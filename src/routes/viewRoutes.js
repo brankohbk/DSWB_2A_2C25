@@ -5,7 +5,7 @@ import { Turno } from "../models/Turno.js";
 const router = Router();
 
 // Home (vista)
-router.get('/', (req, res) => res.render('home', { title: 'Clínica Salud Integral', msg: 'Servidor funcionando' }));
+router.get('/', (req, res) => res.render('home', { title: 'Inicio', msg: 'Seleccione una sección de la barra superior para navegar hasta ella.' }));
 
 // Empleados (vistas)
 router.get('/empleados', async (req, res, next) => {

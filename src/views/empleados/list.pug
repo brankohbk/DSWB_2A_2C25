@@ -1,26 +1,29 @@
 extends ../layout
 block content 
-    h1 Empleados 
-    a(href='/empleados/nuevo') + Nuevo 
+    h2 #{title} 
+    a(href='/empleados/nuevo', class="btn btn-green") &plus; Nuevo 
     if empleados && empleados.length
-        table(border = '1' cellpadding = '6')
-            thead 
-                tr 
-                    th Nombre 
-                    th Rol 
-                    th Área
-                    th ID 
-                tbody 
-                    each e in empleados 
-                        tr 
-                            td= e.nombre 
-                            td= e.rol 
-                            td= e.area 
-                            td= e.id
-                            td
-                                a(href= `/empleados/${e.id}/editar`) Editar
-                                |   . 
-                                form(data-ajax data-redirect='/empleados' method='post',action=`/api/empleados/${e.id}?_method=DELETE`, style='display:inline')
-                                    button(type='submit') Eliminar
+        div(class="table-container")
+            table(border = '1' cellpadding = '6')
+                thead 
+                    tr 
+                        th Nombre 
+                        th Rol 
+                        th Área
+                        th ID 
+                        th Editar 
+                        th Eliminar
+                    tbody 
+                        each e in empleados 
+                            tr 
+                                td= e.nombre 
+                                td= e.rol 
+                                td= e.area 
+                                td(class="txt-wrap")= e.id
+                                td 
+                                    a(href= `/empleados/${e.id}/editar`, class="btn") ✍🏻 Editar
+                                td
+                                    form(data-ajax data-redirect='/empleados' method='post',action=`/api/empleados/${e.id}?_method=DELETE`, style='display:inline')
+                                        button(type='submit', class="btn") 🗑️ Eliminar
     else 
         p No hay empleados.

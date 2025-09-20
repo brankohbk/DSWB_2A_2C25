@@ -1,9 +1,9 @@
-DOCTYPE HTML 
 HTML   
     head 
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         title #{title}
+        link(rel="stylesheet", href="/assets/styles/custom.css")
     body
         script.
             // forms: POST/PUT con redirect
@@ -29,10 +29,26 @@ HTML
                 if (res.ok) location.reload();
                 else alert('Error: ' + (await res.text()));
             });
-    nav
-        a(href='/') Inicio
-        |  · 
-        a(href='/empleados') Empleados
-        |  · 
-        a(href='/turnos') Turnos
-    block content
+    header
+        nav
+            a(href='/', class="btn") 🏠 Inicio        
+            a(href='/empleados', class="btn") 👥 Empleados        
+            a(href='/turnos', class="btn") 📅 Turnos
+    main
+        h1 Clínica Salud Integral
+        block content
+    footer
+        section(class="integrantes")
+            h3 Grupo 15
+            div
+                p Clemens, Fernando
+                p Haberkon, Branko
+                p Lerman, Camila
+            div 
+                p Lorenzo, Matías
+                p Morondo, Martín
+        section
+            h3 IFTS N°29
+            p Desarrollo de Sistemas Web
+            p Backend
+            p 2025
