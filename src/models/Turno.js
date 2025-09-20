@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const turnosFilePath = path.join(__dirname, 'turnos.json');
+const turnosFilePath = path.join(__dirname, '../data/turnos.json');
 
 const ESTADOS = ['pendiente', 'en proceso', 'finalizado'];
 const PRIORIDADES = ['alta', 'media', 'baja'];

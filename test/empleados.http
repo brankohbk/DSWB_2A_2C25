@@ -1,4 +1,4 @@
-### Verificar que el servidor está corriendo
+### Verificar que el servidor está corriendo (Nos devuelve la página de inicio)
 GET http://localhost:4501/
 ###
 
@@ -11,25 +11,25 @@ POST http://localhost:4501/api/empleados
 Content-Type: application/json
 
 {
-  "nombre": "Mariana Pulmón",
-  "rol": "médico",
+  "nombre": "Marcos Pérez",
+  "rol": "Médico",
   "area": "Atención Médica"
 }
 ###
 
 ### Recuperar un empleado por ID
-GET http://localhost:4501/api/empleados/6bd6c6c5-f0e8-4e3f-9e40-c0b3b98dd418
+GET http://localhost:4501/api/empleados/27c33b13-a4bc-478c-8d74-eb7ec123ed1c
 ###
 
 ### Actualizar un dato de un empleado con PUT
-PUT http://localhost:4501/api/empleados/6bd6c6c5-f0e8-4e3f-9e40-c0b3b98dd418
+PUT http://localhost:4501/api/empleados/cf24e112-33b6-4387-989e-af850072acfe
 Content-Type: application/json
 
 {
-  "nombre": "Carlos A. Corazón"
+  "nombre": "Marcos J. Pérez"
 }
 ###
 
 ### Borrar un empleado con DELETE
-DELETE http://localhost:4501/api/empleados/0d3d0f27-3713-4010-8dd9-649f1db40b09
+DELETE http://localhost:4501/api/empleados/cf24e112-33b6-4387-989e-af850072acfe
 ###

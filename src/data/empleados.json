@@ -22,5 +22,11 @@
     "rol": "Administrativa",
     "area": "Recepción",
     "id": "21aee23a-a486-4656-9079-dd831e974396"
+  },
+  {
+    "nombre": "Julia Morales",
+    "rol": "Administrativa",
+    "area": "Stock de Insumos",
+    "id": "4e45768a-26b4-4b65-a15a-07360a5e3e5a"
   }
 ]

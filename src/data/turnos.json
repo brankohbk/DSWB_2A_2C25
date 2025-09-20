@@ -18,5 +18,15 @@
     "prioridad": "media",
     "estado": "pendiente",
     "observaciones": "Consultorio 3"
+  },
+  {
+    "id": "40059c1a-9fe0-4217-b524-20bd6fea41a5",
+    "pacienteId": "333",
+    "empleadoId": "27c33b13-a4bc-478c-8d74-eb7ec123ed1c",
+    "fechaInicio": "2025-09-29T10:00",
+    "fechaFin": "2025-09-29T10:30",
+    "prioridad": "media",
+    "estado": "en proceso",
+    "observaciones": "Consultorio 6"
   }
 ]

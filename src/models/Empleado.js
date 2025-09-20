@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const empleadosFilePath = path.join(__dirname, 'empleados.json');
+const empleadosFilePath = path.join(__dirname, '../data/empleados.json');
 
 export class Empleado {
   constructor(nombre, rol, area) {
