@@ -10,9 +10,9 @@ block content
                     each e in empleados
                         option(value=e.id)= `${e.nombre} - ${e.id}`
         label Inicio
-            input(type='datetime-local', name='fechaInicio', required, value=turno.fechaInicio.slice(0,16))
+            input(type='datetime-local', name='fechaInicio', required, value=turno.fechaInicio)
         label Fin
-            input(type='datetime-local', name='fechaFin', required, value=turno.fechaFin.slice(0,16))
+            input(type='datetime-local', name='fechaFin', required, value=turno.fechaFin)
         label Prioridad
             select(name='prioridad')
                 option(value='alta', selected=turno.prioridad==='alta') alta

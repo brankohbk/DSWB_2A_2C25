@@ -1,3 +1,51 @@
+import mongoose from "mongoose";
+
+// Se define el esquema
+const turnoSchema = new mongoose.Schema({
+    pacienteId: {type: String, required: true},
+    empleadoId: {type: String, required: true},
+    fechaInicio: {type: Date, required: true},
+    fechaFin: {type: Date, required: true},
+    prioridad: {type: String, enum: ['alta', 'media', 'baja'], required: true},
+    estado: {type: String, enum: ['pendiente', 'en proceso', 'finalizado'], required: true},
+    observaciones: {type: String}
+});
+
+// Instanciar el modelo (crear Documento)
+const Turno = mongoose.model('Turno', turnoSchema);
+
+// Función: Obtener todos los Turnos
+async function getAll() {
+  return await Turno.find();
+}
+async function getById(id) {
+  return await Turno.findById(id);
+}
+async function create(newTurno) {
+ return await Turno.create(newTurno)
+}
+async function update(id, doc) {
+  return await Turno.findByIdAndUpdate(id, doc, { new: true });
+}
+async function deleteById(id) {
+  if (!id) throw new Error('ID is required');
+  const deletedTurno = await Turno.findByIdAndDelete(id);
+  if (!deletedTurno) throw new Error('Turno not found');
+  return deletedTurno;
+}
+
+const turnoModelo = {
+  getAll,
+  getById,
+  create,
+  update,
+  deleteById
+}
+
+export default turnoModelo;
+
+
+/*
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -91,3 +139,4 @@ export class Turno {
 }
 
 // export default Turno;
+*/
