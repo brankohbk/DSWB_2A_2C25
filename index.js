@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import methodOverride from 'method-override';
+import mongoose from 'mongoose';
 
 import empleadosRoutes from './src/routes/empleadosRoutes.js';
 import turnosRouter from './src/routes/TurnosRouters.js';
@@ -13,7 +14,11 @@ const PORT = process.env.PORT || 4501;
 const app = express();
 const _filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(_filename);
+const db = process.env.MONGO_URI;
 
+mongoose.connect(db)
+  .then(() => console.log('Connection to Mongo DB established'))
+  .catch(err => console.log(err));
 
 app
 // Middleware para procesar JSON y datos de formularios
