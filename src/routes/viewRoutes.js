@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Empleado } from "../models/Empleado.js";
+import empleadoModelo from "../models/Empleado.js";
 import { Turno } from "../models/Turno.js";
 
 const router = Router();
@@ -10,7 +10,7 @@ router.get('/', (req, res) => res.render('home', { title: 'Inicio', msg: 'Selecc
 // Empleados (vistas)
 router.get('/empleados', async (req, res, next) => {
     try {
-        const empleados = await Empleado.getAll();
+        const empleados = await empleadoModelo.getAll();
         res.render('empleados/list', { title: 'Empleados', empleados, ok: req.query.ok });
     } catch (e) { next(e); }
 });
@@ -21,7 +21,7 @@ router.get('/empleados/nuevo', (req, res) => {
 
 router.get('/empleados/:id/editar', async (req, res, next) => {
     try{
-        const empleado = await Empleado.findById(req.params.id);
+        const empleado = await empleadoModelo.findById(req.params.id);
         if (!empleado) return res.status(404).render('404', { title:'Empleado inexistente' });
         res.render('empleados/edit', { title: 'Editar empleado', empleado });
     } catch (e) {

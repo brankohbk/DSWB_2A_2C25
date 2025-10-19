@@ -1,8 +1,8 @@
-import { Empleado } from '../models/Empleado.js';
+import empleadoModelo  from '../models/Empleado.js';
 
 export const getAllEmpleados = async (req, res) => {
   try {
-    const empleados = await Empleado.getAll();
+    const empleados = await empleadoModelo.getAll();
     res.status(200).json(empleados);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener los empleados.' });
@@ -14,11 +14,10 @@ export const createEmpleado = async (req, res) => {
   if (!nombre || !rol || !area) {
     return res.status(400).json({ message: 'Faltan datos para crear el empleado.' });
   }
-  
-  const nuevoEmpleado = new Empleado(nombre, rol, area);
+  const newEmpleado = {nombre, rol, area}
   try {
-    await Empleado.create(nuevoEmpleado);
-    res.status(201).json({ message: 'Empleado creado exitosamente', data: nuevoEmpleado });
+    await empleadoModelo.create(newEmpleado);
+    res.status(201).json({ message: 'Empleado creado exitosamente', data: newEmpleado });
   } catch (error) {
     res.status(500).json({ message: 'Error al guardar el empleado.', error: error.message });
   }
@@ -26,7 +25,7 @@ export const createEmpleado = async (req, res) => {
 
 export const getEmpleadoById = async (req, res) => {
   try {
-    const empleado = await Empleado.findById(req.params.id);
+    const empleado = await empleadoModelo.findEmpleadoById(req.params.id);
     if (!empleado) {
       return res.status(404).json({ message: 'Empleado no encontrado.' });
     }
@@ -38,7 +37,7 @@ export const getEmpleadoById = async (req, res) => {
 
 export const updateEmpleado = async (req, res) => {
   try {
-    const updatedEmpleado = await Empleado.update(req.params.id, req.body);
+    const updatedEmpleado = await empleadoModelo.update(req.params.id, req.body);
     if (!updatedEmpleado) {
       return res.status(404).json({ message: 'Empleado no encontrado.' });
     }
@@ -50,7 +49,7 @@ export const updateEmpleado = async (req, res) => {
 
 export const deleteEmpleado = async (req, res) => {
   try {
-    const deleted = await Empleado.delete(req.params.id);
+    const deleted = await empleadoModelo.deleteById(req.params.id);
     if (!deleted) {
       return res.status(404).json({ message: 'Empleado no encontrado.' });
     }
