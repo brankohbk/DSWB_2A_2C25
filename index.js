@@ -9,6 +9,7 @@ import empleadosRoutes from './src/routes/empleadosRoutes.js';
 import turnosRouter from './src/routes/TurnosRouters.js';
 import areasRoutes from './src/routes/areasRoutes.js';
 import viewRouters from './src/routes/viewRoutes.js';
+import pacientesRoutes from './src/routes/pacientesRoutes.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 4501;
@@ -40,9 +41,11 @@ app
  // Rutas de turnos
   .use('/api/turnos', turnosRouter)
 
+  // Rutas de pacientes
+  .use('/api/pacientes', pacientesRoutes)
+
   // Rutas de áreas
   .use('/api/areas', areasRoutes)
-
 
 // Rutas de vistas
   .use('/', viewRouters)

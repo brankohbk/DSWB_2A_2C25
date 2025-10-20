@@ -1,0 +1,33 @@
+### Listar todas las áreas
+GET http://localhost:4501/api/areas
+Content-Type: application/json
+
+###
+
+### Crear una nueva área con POST
+POST http://localhost:4501/api/areas
+Content-Type: application/json
+
+{
+  "nombre": "Administración de Turnos"
+}
+###
+
+### Obtener un área por ID (Usar un ID de Mongo)
+GET http://localhost:4501/api/areas/68f6a19efa1967ff989dad13
+Content-Type: application/json
+
+###
+
+### Actualizar el nombre de un área con PUT
+PUT http://localhost:4501/api/areas/68f6a19efa1967ff989dad13
+Content-Type: application/json
+
+{
+  "nombre": "Administración de Turnos"
+}
+###
+
+### Eliminar un área por ID
+DELETE http://localhost:4501/api/areas/68f6a1f8fa1967ff989dad1c
+Content-Type: application/json

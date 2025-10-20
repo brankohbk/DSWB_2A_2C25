@@ -1,0 +1,40 @@
+### Listar todos los pacientes
+GET http://localhost:4501/api/pacientes
+Content-Type: application/json
+
+###
+
+### Crear un nuevo paciente con POST
+POST http://localhost:4501/api/pacientes
+Content-Type: application/json
+
+{
+  "nombre": "Carrerrlos",
+  "apellido": "Torres",
+  "dni": "40235589",
+  "fechaNacimiento": "2005-05-15T00:00:00.000Z",
+  "obraSocial": "Unión Personal",
+  "telefono": "1100005986",
+  "email": "carlos.torres2@mail.com"
+}
+###
+
+### Recuperar un paciente por ID
+GET http://localhost:4501/api/pacientes/68f69ed4683334303c882514
+Content-Type: application/json
+
+###
+
+### Actualizar un dato de un paciente con PUT
+PUT http://localhost:4501/api/pacientes/68f69ed4683334303c882514
+Content-Type: application/json
+
+{
+  "obraSocial": "Swiss Medical",
+  "telefono": "1155554321"
+}
+###
+
+### Borrar un paciente con DELETE
+DELETE http://localhost:4501/api/pacientes/68f6a005fa1967ff989dad0d
+Content-Type: application/json
