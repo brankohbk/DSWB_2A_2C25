@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 
 import empleadosRoutes from './src/routes/empleadosRoutes.js';
 import turnosRouter from './src/routes/TurnosRouters.js';
+import areasRoutes from './src/routes/areasRoutes.js';
 import viewRouters from './src/routes/viewRoutes.js';
 
 dotenv.config();
@@ -38,6 +39,10 @@ app
 
  // Rutas de turnos
   .use('/api/turnos', turnosRouter)
+
+  // Rutas de áreas
+  .use('/api/areas', areasRoutes)
+
 
 // Rutas de vistas
   .use('/', viewRouters)
