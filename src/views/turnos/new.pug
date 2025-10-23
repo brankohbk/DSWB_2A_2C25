@@ -3,10 +3,16 @@ block content
     h2 #{title}
     form(data-ajax data-redirect='/turnos' method='post', action='/api/turnos')
         label 
-            span Paciente ID
-            input(type='number', name='pacienteId', required)
+            span Paciente
+            if pacientes && pacientes.length
+                select(name='pacienteId', required)
+                    option(value='', selected) Seleccione
+                    each p in pacientes
+                        option(value=p._id)= `${p.nombre} ${p.apellido} - DNI: ${p.dni}`
+            else
+                p No hay pacientes cargados
         label
-            span Empleado ID
+            span Empleado
             if empleados && empleados.length
                 select(name='empleadoId', required)
                     option(value='', selected) Seleccione 

@@ -2,6 +2,7 @@ import { Router } from "express";
 import empleadoModelo from "../models/Empleado.js";
 import turnoModelo from "../models/Turno.js";
 import pacienteModelo from "../models/Paciente.js";
+import TurnosService from "../services/TurnosService.js";
 
 const router = Router();
 
@@ -35,8 +36,13 @@ router.get('/empleados/:id/editar', async (req, res, next) => {
 // Turnos (vistas)
 router.get('/turnos', async (req, res,next) => {
     try{
-        const turnos = await turnoModelo.getAll();
-        res.render('turnos/list', { title: 'Turnos', turnos, ok: req.query.ok });
+      //const turnos = await turnoModelo.getAll();
+      const turnosConDetalle = await TurnosService.listarTurnosConDetalle();
+      res.render('turnos/list', {
+        title: 'Turnos',
+        turnos: turnosConDetalle,
+        ok: req.query.ok
+      });
     } catch (e) {
         next(e);
     }
@@ -45,8 +51,14 @@ router.get('/turnos', async (req, res,next) => {
 
 router.get('/turnos/nuevo', async (req, res, next) => {    
     try{
-        const empleados = await empleadoModelo.getAll();
-        res.render('turnos/new', { title: 'Nuevo turno', empleados, ok: req.query.ok });
+      const empleados = await empleadoModelo.getAll();
+      const pacientes = await pacienteModelo.getAll();
+      res.render('turnos/new', {
+        title: 'Nuevo turno',
+        empleados,
+        pacientes,
+        ok: req.query.ok
+      });
     } catch (e) {
         next(e);
     }
@@ -54,10 +66,16 @@ router.get('/turnos/nuevo', async (req, res, next) => {
 
 router.get('/turnos/:id/actualizar', async (req, res, next) => {
     try{
-        const empleados = await empleadoModelo.getAll();
-        const turno = await turnoModelo.getById(req.params.id);
-        if (!turno) return res.status(404).render('404', { title:'Turno inexistente' });
-        res.render('turnos/actualizar', { title: 'Actualizar turno', turno, empleados});
+      const empleados = await empleadoModelo.getAll();
+      const pacientes = await pacienteModelo.getAll();
+      const turno = await turnoModelo.getById(req.params.id);
+      if (!turno) return res.status(404).render('404', { title:'Turno inexistente' });
+      res.render('turnos/actualizar', {
+        title: 'Actualizar turno',
+        turno,
+        empleados,
+        pacientes
+      });
     } catch (e) {
         next(e);
     }

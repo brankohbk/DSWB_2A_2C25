@@ -1,11 +1,12 @@
+import TurnosService from '../services/TurnosService.js'
 import turnoModelo from '../models/Turno.js';
 
 class TurnosController {
 
-  // Listar todos los turnos
+  // Listar todos los turnos con detalle (usando el servicio)
   static async listarTurnos(req, res) {
     try {
-      const turnos = await turnoModelo.getAll();
+      const turnos = await TurnosService.listarTurnosConDetalle();
       res.json(turnos);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -24,38 +25,37 @@ class TurnosController {
     }
   }
 
-  // Crear un nuevo turno
+  // Crear un nuevo turno (usando el servicio para la lógica de validación)
   static async crearTurno(req, res) {
     try {
-      const { pacienteId, empleadoId, fechaInicio, fechaFin, prioridad, estado, observaciones } = req.body;
-      if (!pacienteId || !empleadoId || !fechaInicio || !fechaFin) {
-        return res.status(400).json({ error: 'Faltan campos requeridos' });
-      }
-      const nuevoTurno = { pacienteId, empleadoId, fechaInicio, fechaFin, prioridad, estado, observaciones };
-      const turnoCreado = await turnoModelo.create(nuevoTurno);
+      const data = req.body;
+      const turnoCreado = await TurnosService.crearTurno(data);
       res.status(201).json(turnoCreado);
     } catch (error) {
+      if (error.message.startsWith('Error de validación')) {
+          return res.status(400).json({ error: error.message });
+      }
       res.status(400).json({ error: error.message });
     }
   }
 
-  // Actualizar un turno existente
+  // Actualizar un turno existente (usando el servicio)
   static async actualizarTurno(req, res) {
     try {
       const id = req.params.id;
       const datos = req.body;
-      const turnoActualizado = await turnoModelo.update(id, datos);
+      const turnoActualizado = await TurnosService.actualizarTurno(id, datos);
       res.json(turnoActualizado);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
-  // Eliminar un turno por ID
+  // Eliminar un turno por ID (usando el servicio)
   static async eliminarTurno(req, res) {
     try {
       const id = req.params.id;
-      const eliminado = await turnoModelo.deleteById(id);
+      const eliminado = await TurnosService.eliminarTurno(id);
       res.json({ message: 'Turno eliminado', turno: eliminado });
     } catch (error) {
       res.status(400).json({ error: error.message });

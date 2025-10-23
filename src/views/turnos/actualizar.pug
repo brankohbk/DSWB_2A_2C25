@@ -2,13 +2,14 @@ extends ../layout
 block content
     h1 Editar turno
     form(data-ajax data-redirect='/turnos' method='post', action=`/api/turnos/${turno.id}?_method=PUT`)
-        label Paciente ID
-            input(type='number', name='pacienteId', required, value=turno.pacienteId)
-        label Empleado ID
+        label Paciente
+            select(name='pacienteId', required)
+                each p in pacientes
+                    option( value=p._id, selected=p._id.toString() == turno.pacienteId.toString() )= `${p.nombre} ${p.apellido} - DNI: ${p.dni}`
+        label Empleado
             select(name='empleadoId', required)
-                    option( value=turno.empleadoId, selected)=turno.empleadoId 
                     each e in empleados
-                        option(value=e.id)= `${e.nombre} - ${e.id}`
+                        option( value=e._id, selected=e._id.toString() == turno.empleadoId.toString() )= `${e.nombre} - ${e.id}`
         label Inicio
             input(type='datetime-local', name='fechaInicio', required, value=turno.fechaInicio)
         label Fin

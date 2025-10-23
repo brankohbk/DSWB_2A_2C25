@@ -20,9 +20,9 @@ block content
                 tbody
                     each t in turnos
                         tr
-                            td(class="txt-wrap")= t.id
-                            td(class="txt-wrap")= t.pacienteId
-                            td(class="txt-wrap")= t.empleadoId
+                            td(class="txt-wrap")= t._id || t.id
+                            td(class="txt-wrap")= `${t.pacienteData.nombre} ${t.pacienteData.apellido} - DNI: ${t.pacienteData.dni}` 
+                            td(class="txt-wrap")= t.empleadoData.nombre
                             td= new Date(t.fechaInicio).toLocaleString('es-AR')
                             td= new Date(t.fechaFin).toLocaleString('es-AR')
                             td= t.prioridad
@@ -31,7 +31,7 @@ block content
                             td 
                                 a(href=`/turnos/${t.id}/actualizar`, class="btn btn-yellow") ✍🏻 Editar
                             td
-                                form(data-ajax data-redirect='/turnos' method='post', action = `api/turnos/${t.id}?_method=DELETE`)
-                                    button(type='submit', class="btn btn-red", onclick=`return confirm("¿Seguro que quiere eliminar el turno con id ${t.id} ?")`) 🗑️ Eliminar
+                                form(data-ajax data-redirect='/turnos' method='post', action = `api/turnos/${t._id}?_method=DELETE`)
+                                    button(type='submit', class="btn btn-red", onclick=`return confirm("¿Seguro que quiere eliminar el turno con id ${t._id} ?")`) 🗑️ Eliminar
     else
         p No hay turnos.
