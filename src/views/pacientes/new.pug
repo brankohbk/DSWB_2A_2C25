@@ -1,0 +1,34 @@
+extends ../layout 
+block content 
+    h2 #{title}
+    form(data-ajax data-redirect='/pacientes' method='post', action='/api/pacientes')
+        label
+            span Nombre
+            input(type='text', name='nombre', required)
+        
+        label
+            span Apellido
+            input(type='text', name='apellido', required)
+
+        label
+            span DNI
+            input(type='text', name='dni', required)
+            
+        label
+            span Fecha de Nacimiento
+            input(type='date', name='fechaNacimiento', required)
+
+        label
+            span Obra Social
+            input(type='text', name='obraSocial', required)
+            
+        label
+            span Teléfono (Opcional)
+            input(type='text', name='telefono')
+            
+        label
+            span Email (Opcional)
+            input(type='email', name='email')
+        
+        a(href='/pacientes', class="btn btn-red") ❌ Cancelar
+        button(type='submit', class="btn btn-green btn-guardar") ✅ Guardar

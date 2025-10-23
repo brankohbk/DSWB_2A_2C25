@@ -1,0 +1,30 @@
+extends ../layout
+block content
+    h1 #{title}
+    // Usa p._id para Mongoose/Mongo
+    form(data-ajax data-redirect='/pacientes' method='post', action=`/api/pacientes/${paciente._id}?_method=PUT`) 
+        label Nombre
+            input(type='text', name='nombre', required, value=paciente.nombre)
+        label Apellido
+            input(type='text', name='apellido', required, value=paciente.apellido)
+        label DNI
+            input(type='text', name='dni', required, value=paciente.dni)
+        label Fecha de Nacimiento
+            // Mongoose almacena la fecha como objeto Date. Para precargarla en input[type=date] 
+            // primero la convertimos a cadena ISO y luego recortamos la parte de la fecha.
+            // La corrección fue aplicada a la línea siguiente.
+            input(
+                type='date', 
+                name='fechaNacimiento', 
+                required, 
+                value=paciente.fechaNacimiento.toISOString().substring(0, 10)
+            )
+        label Obra Social
+            input(type='text', name='obraSocial', required, value=paciente.obraSocial)
+        label Teléfono
+            input(type='text', name='telefono', value=paciente.telefono)
+        label Email
+            input(type='email', name='email', value=paciente.email)
+
+        a(href='/pacientes', class="btn btn-red") ❌ Cancelar
+        button(type='submit', class="btn btn-green") ✅ Guardar cambios

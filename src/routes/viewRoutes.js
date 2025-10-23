@@ -1,6 +1,7 @@
 import { Router } from "express";
 import empleadoModelo from "../models/Empleado.js";
 import turnoModelo from "../models/Turno.js";
+import pacienteModelo from "../models/Paciente.js";
 
 const router = Router();
 
@@ -57,6 +58,28 @@ router.get('/turnos/:id/actualizar', async (req, res, next) => {
         const turno = await turnoModelo.getById(req.params.id);
         if (!turno) return res.status(404).render('404', { title:'Turno inexistente' });
         res.render('turnos/actualizar', { title: 'Actualizar turno', turno, empleados});
+    } catch (e) {
+        next(e);
+    }
+});
+
+// Pacientes (vistas)
+router.get('/pacientes', async (req, res, next) => {
+    try {
+        const pacientes = await pacienteModelo.getAll();
+        res.render('pacientes/list', { title: 'Pacientes', pacientes, ok: req.query.ok });
+    } catch (e) { next(e); }
+});
+
+router.get('/pacientes/nuevo', (req, res) => {
+    res.render('pacientes/new', { title: 'Nuevo paciente' });
+});
+
+router.get('/pacientes/:id/editar', async (req, res, next) => {
+    try{
+        const paciente = await pacienteModelo.findById(req.params.id);
+        if (!paciente) return res.status(404).render('404', { title:'Paciente inexistente' });
+        res.render('pacientes/edit', { title: 'Editar paciente', paciente });
     } catch (e) {
         next(e);
     }
