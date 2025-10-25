@@ -18,9 +18,11 @@ Proyecto de CRUD (Create, Read, Update, Delete) desarrollado con Node.js y Expre
 
 ## Dependencias
 
-- **dotenv** v17.2.2
+- **dotenv** v17.2.3
 - **express** v5.1.0
 - **method-override** v3.0.0
+- **mongoose**: v8.19.1
+- **nodemon**: v3.1.10
 - **pug** v3.0.3
 - **uuid** v13.0.0
 
@@ -28,50 +30,56 @@ Proyecto de CRUD (Create, Read, Update, Delete) desarrollado con Node.js y Expre
 
 ```
 DSWB_2A_2C25/
-│── public/
-│   └── assets/styles/
-│       └── custom.css
-│       └── reset.css
-│── src/
-│   └── controllers/
-│       └── empleadosController.js
-│       └── TurnosController.js
-│   └── data/
-│       └── areas.json
-│       └── empleados.json
-│       └── insumos.json
-│       └── pacientes.json
-│       └── roles.json
-│       └── turnos.json
-│   └── models/
-│       └── Empleado.js
-│       └── Turno.js
-│   └── routes/
-│       └── empleadosRoutes.js
-│       └── TurnosRouters.js
-│       └── viewRoutes.js
-│   └── views/
-│       └── empleados/
-│           └── edit.pug
-│           └── list.pug
-│           └── new.pug
-│       └── turnos/
-│           └── actualizar.pug
-│           └── list.pug
-│           └── new.pug
-│       └── 404.pug
-│       └── 500.pug
-│       └── home.pug
+├── public/
+│   └── assets/
+│       └── styles/  (Archivos CSS estáticos)
+│           ├── custom.css
+│           └── reset.css
+├── src/
+│   ├── controllers/ (Manejan la lógica de la petición)
+│   │   ├── AreasController.js
+│   │   ├── EmpleadosController.js
+│   │   ├── PacientesController.js
+│   │   └── TurnosController.js
+│   ├── data/ (Datos de prueba para la inicialización)
+│   │   ├── areas.json
+│   │   ├── empleados.json
+│   │   ├── insumos.json
+│   │   ├── pacientes.json
+│   │   ├── roles.json
+│   │   └── turnos.json
+│   ├── models/ (Definen la estructura de los datos (Mongoose Schemas))
+│   │   ├── Area.js
+│   │   ├── Empleado.js
+│   │   ├── Paciente.js
+│   │   └── Turno.js
+│   ├── routes/ (Definen los endpoints de la API RESTful)
+│   │   ├── areasRoutes.js
+│   │   ├── empleadosRoutes.js
+│   │   ├── pacientesRoutes.js
+│   │   ├── turnosRoutes.js
+│   │   └── viewRoutes.js (Rutas para las vistas Pugjs)
+│   ├── services/ (Lógica de negocio compleja - Solo ejemplo con TurnosService)
+│   │   └── TurnosService.js
+│   └── views/ (Plantillas Pugjs para la interfaz simple)
+│       ├── empleados/
+│       ├── pacientes/
+│       ├── turnos/
+│       ├── 404.pug
+│       ├── 500.pug
+│       ├── home.pug
 │       └── layout.pug
-│── test/
-│   └── empleados.http
-│   └── turnos.http
-│── .gitignore
-│── index.js
-│── LICENSE
-│── package-lock.json
-│── package.json
-│── README
+├── test/ (Archivos para probar los endpoints de la API)
+│   ├── areas.http
+│   ├── empleados.http
+│   └── pacientes.http
+├── .env (Variables de entorno)
+├── .gitignore (Archivos a ignorar en Git)
+├── index.js (Punto de entrada de la aplicación)
+├── LICENSE
+├── package-lock.json
+├── package.json
+└── README.md
 ```
 
 ## Instalación
