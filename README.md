@@ -39,6 +39,7 @@ DSWB_2A_2C25/
 │   ├── controllers/ (Manejan la lógica de la petición)
 │   │   ├── AreasController.js
 │   │   ├── EmpleadosController.js
+│   │   ├── InsumosController.js
 │   │   ├── PacientesController.js
 │   │   └── TurnosController.js
 │   ├── data/ (Datos de prueba para la inicialización)
@@ -51,15 +52,17 @@ DSWB_2A_2C25/
 │   ├── models/ (Definen la estructura de los datos (Mongoose Schemas))
 │   │   ├── Area.js
 │   │   ├── Empleado.js
+│   │   ├── Insumos.js
 │   │   ├── Paciente.js
 │   │   └── Turno.js
 │   ├── routes/ (Definen los endpoints de la API RESTful)
 │   │   ├── areasRoutes.js
 │   │   ├── empleadosRoutes.js
+│   │   ├── insumosRoutes.js
 │   │   ├── pacientesRoutes.js
 │   │   ├── turnosRoutes.js
 │   │   └── viewRoutes.js (Rutas para las vistas Pugjs)
-│   ├── services/ (Lógica de negocio compleja - Solo ejemplo con TurnosService)
+│   ├── services/
 │   │   └── TurnosService.js
 │   └── views/ (Plantillas Pugjs para la interfaz simple)
 │       ├── empleados/
@@ -72,7 +75,9 @@ DSWB_2A_2C25/
 ├── test/ (Archivos para probar los endpoints de la API)
 │   ├── areas.http
 │   ├── empleados.http
-│   └── pacientes.http
+│   ├── insumos.http
+│   ├── pacientes.http
+│   └── turnos.http
 ├── .env (Variables de entorno)
 ├── .gitignore (Archivos a ignorar en Git)
 ├── index.js (Punto de entrada de la aplicación)
@@ -80,6 +85,7 @@ DSWB_2A_2C25/
 ├── package-lock.json
 ├── package.json
 └── README.md
+
 ```
 
 ## Instalación
