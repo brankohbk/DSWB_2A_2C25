@@ -1,0 +1,59 @@
+### 1. Listar todos los Insumos (Inventario Completo)
+# GET /api/insumos
+GET http://localhost:4501/api/insumos
+Content-Type: application/json
+
+###
+
+### 2. Catalogar un nuevo Insumo (POST)
+# Prueba de éxito. Usar una fecha de vencimiento lejana.
+# POST /api/insumos
+POST http://localhost:4501/api/insumos
+Content-Type: application/json
+
+{
+  "nombre": "Jeringa de 5ml",
+  "descripcion": "Jeringas descartables de un solo uso",
+  "stock": 100,
+  "fechaVencimiento": "2026-05-30T00:00:00.000Z",
+  "proveedor": "Proveedora Central"
+}
+###
+
+### 3. Catalogar un Insumo (Duplicado - Debe fallar con 400)
+POST http://localhost:4501/api/insumos
+Content-Type: application/json
+
+{
+  "nombre": "Jeringa de 5ml",
+  "descripcion": "Otro proveedor",
+  "stock": 50,
+  "fechaVencimiento": "2027-01-01T00:00:00.000Z",
+  "proveedor": "Otro"
+}
+###
+
+### 4. Obtener un Insumo por ID
+# GET /api/insumos/:id
+GET http://localhost:4501/api/insumos/68fb89ec26e72767e33c1d36
+Content-Type: application/json
+
+###
+
+### 5. Actualizar Stock o Proveedor (PUT)
+# Este endpoint se usa para cambiar cualquier campo, incluido el 'stock'.
+# PUT /api/insumos/:id
+PUT http://localhost:4501/api/insumos/68fb89ec26e72767e33c1d36
+Content-Type: application/json
+
+{
+  "stock": 50,
+  "proveedor": "Farmacia Nueva Era"
+}
+###
+
+
+### 7. Eliminar un Insumo por ID
+# DELETE /api/insumos/:id
+DELETE http://localhost:4501/api/insumos/68fb89ec26e72767e33c1d36
+Content-Type: application/json
