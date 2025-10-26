@@ -1,0 +1,26 @@
+extends ../layout 
+block content 
+    h2 #{title}
+    form(data-ajax data-redirect='/insumos' method='post', action='/api/insumos')
+        label
+            span Nombre
+            input(type='text', name='nombre', required)
+        
+        label
+            span Descripción
+            input(type='text', name='descripcion', required)
+
+        label
+            span Stock
+            input(type='number', name='stock', min='0', required)
+            
+        label
+            span Fecha de Vencimiento
+            input(type='date', name='fechaVencimiento')
+
+        label
+            span Proveedor
+            input(type='text', name='proveedor')
+        
+        a(href='/insumos', class="btn btn-red") ❌ Cancelar
+        button(type='submit', class="btn btn-green btn-guardar") ✅ Guardar

@@ -12,11 +12,11 @@ POST http://localhost:4501/api/insumos
 Content-Type: application/json
 
 {
-  "nombre": "Jeringa de 5ml",
-  "descripcion": "Jeringas descartables de un solo uso",
+  "nombre": "Barbijos descartables",
+  "descripcion": "Elemento descartable de un solo uso",
   "stock": 100,
-  "fechaVencimiento": "2026-05-30T00:00:00.000Z",
-  "proveedor": "Proveedora Central"
+  "fechaVencimiento": "2027-02-30T00:00:00.000Z",
+  "proveedor": "Medical Support SA"
 }
 ###
 
@@ -35,7 +35,7 @@ Content-Type: application/json
 
 ### 4. Obtener un Insumo por ID
 # GET /api/insumos/:id
-GET http://localhost:4501/api/insumos/68fb89ec26e72767e33c1d36
+GET http://localhost:4501/api/insumos/68fd30f4443a7aa4918234a2
 Content-Type: application/json
 
 ###
@@ -43,7 +43,7 @@ Content-Type: application/json
 ### 5. Actualizar Stock o Proveedor (PUT)
 # Este endpoint se usa para cambiar cualquier campo, incluido el 'stock'.
 # PUT /api/insumos/:id
-PUT http://localhost:4501/api/insumos/68fb89ec26e72767e33c1d36
+PUT http://localhost:4501/api/insumos/68fd30f4443a7aa4918234a2
 Content-Type: application/json
 
 {
@@ -55,5 +55,5 @@ Content-Type: application/json
 
 ### 7. Eliminar un Insumo por ID
 # DELETE /api/insumos/:id
-DELETE http://localhost:4501/api/insumos/68fb89ec26e72767e33c1d36
+DELETE http://localhost:4501/api/insumos/68fd24aaba208a5ee93d1e02
 Content-Type: application/json

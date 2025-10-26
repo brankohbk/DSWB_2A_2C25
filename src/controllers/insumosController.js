@@ -51,7 +51,7 @@ export const updateInsumo = async (req, res) => {
     }
     res.status(200).json({ message: 'Insumo actualizado exitosamente', data: updatedInsumo });
   } catch (error) {
-     if (error.name === 'ValidationError') {
+      if (error.name === 'ValidationError') {
       return res.status(400).json({ message: 'Datos inválidos.', errors: error.errors });
     }
     res.status(500).json({ message: 'Error al actualizar el insumo.', error: error.message });
@@ -63,7 +63,7 @@ export const deleteInsumo = async (req, res) => {
   try {
     const deletedInsumo = await Insumo.findByIdAndDelete(req.params.id);
     if (!deletedInsumo) {
-      return res.status(4404).json({ message: 'Insumo no encontrado.' });
+      return res.status(404).json({ message: 'Insumo no encontrado.' });
     }
     res.status(200).json({ message: 'Insumo eliminado exitosamente.' });
   } catch (error) {

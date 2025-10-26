@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+    h2 #{title}
+
+    form(
+        data-ajax
+        data-redirect='/insumos'
+        method='post'
+        action=`/api/insumos/${insumo._id}?_method=PUT`
+        style='max-width:400px; display:flex; flex-direction:column; gap:12px;'
+    )
+
+        label
+        span Nombre
+        input(type='text', name='nombre', required, value=insumo.nombre)
+
+        label
+        span Descripción
+        input(type='text', name='descripcion', value=insumo.descripcion)
+
+        label
+        span Stock
+        input(type='number', name='stock', min='0', required, value=insumo.stock)
+
+        label
+        span Fecha de Vencimiento
+        input(
+            type='date',
+            name='fechaVencimiento',
+            value= insumo.fechaVencimiento
+            ? new Date(insumo.fechaVencimiento).toISOString().slice(0,10)
+            : ''
+        )
+
+        label
+        span Proveedor
+        input(type='text', name='proveedor', value=insumo.proveedor)
+
+        div(style='display:flex; gap:12px; margin-top:16px;')
+        a(href='/insumos', class='btn btn-red') ❌ Cancelar
+        button(type='submit', class='btn btn-green btn-guardar') 💾 Guardar cambios
