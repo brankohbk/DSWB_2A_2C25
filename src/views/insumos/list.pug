@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+    h1 #{title}
+
+    a(href='/insumos/nuevo', class="btn btn-green") &plus; Nuevo
+
+    if insumos && insumos.length
+        div(class="table-container")
+        table(border='1' cellpadding='6')
+            thead
+                tr
+                    th Nombre
+                    th Descripción
+                    th Stock
+                    th Vencimiento
+                    th Proveedor
+                    th Editar 
+                    th Eliminar
+            tbody
+            each i in insumos
+                tr
+                    td= i.nombre
+                    td= i.descripcion || '-'
+                    td= i.stock
+                    td= i.fechaVencimiento ? new Date(i.fechaVencimiento).toLocaleDateString('es-AR') : '-'
+                    td= i.proveedor || '-'
+                    td 
+                        a(href= `/insumos/${i._id}/editar`, class="btn btn-yellow") ✍🏻 Actualizar
+                    td
+                        form(data-ajax data-redirect='/insumos' method='post',action=`/api/insumos/${i._id}?_method=DELETE`, style='display:inline')
+                            button(type='submit', class="btn btn-red", onclick=`return confirm(\"¿Seguro que quiere eliminar el insumo ${i.nombre}?\")`) 🗑️ Eliminar
+    else
+        p No hay insumos cargados.

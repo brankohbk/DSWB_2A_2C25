@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+    h2 #{title}
+    p Umbral mínimo: #{umbralMinimo} unidades.
+    if alertas && alertas.length
+        p(style='color:red; font-weight:bold') Atención. Stock bajo detectado.
+        table(border='1' cellpadding='6')
+            thead
+                tr
+                    th Nombre
+                    th Stock actual
+                    th Proveedor
+                    th Vencimiento
+                    th Acción
+            tbody
+                each a in alertas
+                    tr
+                        td= a.nombre
+                        td= a.stock
+                        td= a.proveedor || '-'
+                        td= a.fechaVencimiento? new Date(a.fechaVencimiento).toLocaleDateString('es-AR'): '-'
+                        td
+                            a(href=`/insumos/${a._id}/editar`, class="btn btn-green btn-guardar") Reponer / Editar
+    else
+        p(style='color:green') No hay insumos bajo el mínimo.
+
+    a(href='/insumos', class="btn") ← Volver a listado de insumos
