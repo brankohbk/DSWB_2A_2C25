@@ -20,10 +20,13 @@ block content
                         tr 
                             td= `${p.nombre} ${p.apellido}` 
                             td= p.dni 
-                            - const dia = p.fechaNacimiento.getUTCDate().toString().padStart(2, '0')
-                            - const mes = (p.fechaNacimiento.getUTCMonth() + 1).toString().padStart(2, '0')
-                            - const anio = p.fechaNacimiento.getUTCFullYear()
-                            td= `${dia}/${mes}/${anio}`
+                            if p.fechaNacimiento
+                                - const dia = p.fechaNacimiento.getUTCDate().toString().padStart(2, '0')
+                                - const mes = (p.fechaNacimiento.getUTCMonth() + 1).toString().padStart(2, '0')
+                                - const anio = p.fechaNacimiento.getUTCFullYear()
+                                td= `${dia}/${mes}/${anio}`
+                            else
+                                td= `Fecha desconocida`
                             td= p.obraSocial
                             td= p.email
                             td= p.telefono
