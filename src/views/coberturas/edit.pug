@@ -1,0 +1,10 @@
+extends ../layout
+block content
+    h1 #{title}
+    form(data-ajax data-redirect='/coberturas' method='post', action=`/api/coberturas/${cobertura.id}?_method=PUT`)
+        label Prestador
+            input(type='text', name='prestador', required, value=cobertura.prestador)
+        label Plan
+            input(type='text', name='plan', required, value=cobertura.plan)
+        a(href='/coberturas', class="btn btn-red") ❌ Cancelar
+        button(type='submit', class="btn btn-green") ✅ Guardar cambios

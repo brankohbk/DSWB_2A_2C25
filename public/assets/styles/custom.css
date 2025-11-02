@@ -13,6 +13,8 @@ nav {
   padding: 1rem;
   display: flex;
   gap: 1rem;
+  width: 100dvw;
+  flex-wrap: wrap;
 }
 main {
   padding: 1rem;
@@ -64,6 +66,7 @@ table {
   }
   td {
     text-wrap-mode: nowrap;
+    min-width: 10ch;
   }
 }
 

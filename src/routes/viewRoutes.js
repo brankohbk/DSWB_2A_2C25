@@ -4,6 +4,7 @@ import turnoModelo from "../models/Turno.js";
 import pacienteModelo from "../models/Paciente.js";
 import TurnosService from "../services/TurnosService.js";
 import insumoModelo from "../models/Insumo.js";
+import coberturaModelo from "../models/Cobertura.js";
 
 const router = Router();
 
@@ -163,7 +164,27 @@ router.get('/insumos/:id/editar', async (req, res, next) => {
 });
 
 
+// Coberturas (vistas)
+router.get('/coberturas', async (req, res, next) => {
+    try {
+        const coberturas = await coberturaModelo.getAll();
+        res.render('coberturas/list', { title: 'Coberturas', coberturas, ok: req.query.ok });
+    } catch (e) { next(e); }
+});
 
+router.get('/coberturas/nuevo', (req, res) => {
+    res.render('coberturas/new', { title: 'Nuevo cobertura' });
+});
+
+router.get('/coberturas/:id/editar', async (req, res, next) => {
+    try{
+        const cobertura = await coberturaModelo.findById(req.params.id);
+        if (!cobertura) return res.status(404).render('404', { title:'Cobertura inexistente' });
+        res.render('coberturas/edit', { title: 'Editar cobertura', cobertura });
+    } catch (e) {
+        next(e);
+    }
+});
 
 
 
