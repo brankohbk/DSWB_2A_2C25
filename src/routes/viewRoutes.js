@@ -104,6 +104,8 @@ router.get('/pacientes/:id/editar', async (req, res, next) => {
     }
 });
 
+router.get
+
 //Insumos (vista)
 router.get('/insumos', async (req, res, next) => {
     try {

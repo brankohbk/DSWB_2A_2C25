@@ -11,9 +11,10 @@ POST http://localhost:4501/api/empleados
 Content-Type: application/json
 
 {
-  "nombre": "Marcos Pérez",
-  "rol": "Médico",
-  "area": "Atención Médica"
+  "nombre": "Patricia Pastorutti",
+  "rol": "medico",
+  "area": "Atención Médica",
+  "nombreUsuario": "PatPastorutti"
 }
 ###
 

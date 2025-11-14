@@ -4,10 +4,11 @@ const pacienteSchema = new mongoose.Schema({
   nombre: { type: String, required: true, trim: true },
   apellido: { type: String, required: true, trim: true },
   dni: { type: String, required: true, unique: true, trim: true },
-  fechaNacimiento: { type: Date, required: true },
-  obraSocial: { type: String, required: true, trim: true },
-  telefono: { type: String, trim: true },
-  email: { type: String, trim: true, unique: true, sparse: true }
+  fechaNacimiento: { type: Date},
+  obraSocial: { type: String },
+  telefono: { type: String},
+  email: { type: String, required: true, unique: true, sparse: true },
+  registroParcial: { type: Boolean, default: true}
 }, {
   timestamps: true
 });
@@ -30,12 +31,29 @@ async function deleteById(id) {
   return await Paciente.findByIdAndDelete(id);
 }
 
+// Busqueda de paciente por DNI para evitar repetidos:
+async function findOne(filter) { return await Paciente.findOne(filter); }
+
+//Busqueda de todos los pacientes con registro incompleto:
+async function find(filter) { 
+  return await Paciente.find(filter)
+    .sort({ createdAt: -1 })
+    .select({_id: 1, nombre: 1, apellido: 1, dni: 1, email: 1, telefono: 1, createdAt: 1 });
+}
+
+async function getAllPacientesParciales() {
+  return await Paciente.find({ registroParcial: true });
+}
+
 const pacienteModelo = {
   getAll,
   findById,
   create,
   update,
-  deleteById
-}
+  deleteById,
+  findOne,
+  getAllPacientesParciales,
+  find
+};
 
 export default pacienteModelo;
