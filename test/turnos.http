@@ -1,3 +1,11 @@
+POST http://localhost:4501/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
+
 ### Listar todos los turnos
 GET http://localhost:4501/api/turnos
 Content-Type: application/json
