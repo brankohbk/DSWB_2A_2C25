@@ -1,6 +1,15 @@
+
 ### Verificar que el servidor está corriendo (Nos devuelve la página de inicio)
 GET http://localhost:4501/
 ###
+
+POST http://localhost:4501/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
 
 ### Recuperar todos los empleados
 GET http://localhost:4501/api/empleados
