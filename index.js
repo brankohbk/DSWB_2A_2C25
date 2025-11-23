@@ -16,6 +16,7 @@ import areasRoutes from './src/routes/areasRoutes.js';
 import viewRouters from './src/routes/viewRoutes.js';
 import pacientesRoutes from './src/routes/pacientesRoutes.js';
 import insumosRoutes from './src/routes/insumosRoutes.js';
+import coberturasRoutes from './src/routes/coberturasRoutes.js';
 import resultadosRoutes from './src/routes/resultadosRoutes.js';
 import fileRoutes from './src/routes/fileRoutes.js';
 
@@ -77,6 +78,9 @@ app.use('/files', fileRoutes);
 app.use('/', isAuthenticated, viewRouters);
 
 // --- MANEJO DE ERRORES ---
+
+  // Rutas de coberturas
+  .use('/api/coberturas', coberturasRoutes)
 
 // Error 404: No encontrado
 app.use((req, res, next) => {

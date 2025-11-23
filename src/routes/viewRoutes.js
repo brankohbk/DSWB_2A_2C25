@@ -4,6 +4,7 @@ import turnoModelo from "../models/Turno.js";
 import pacienteModelo from "../models/Paciente.js";
 import TurnosService from "../services/TurnosService.js";
 import insumoModelo from "../models/Insumo.js";
+import coberturaModelo from "../models/Cobertura.js";
 import resultadoEstudioModelo from "../models/ResultadoEstudio.js";
 
 const router = Router();
@@ -87,19 +88,22 @@ router.get('/turnos/:id/actualizar', async (req, res, next) => {
 router.get('/pacientes', async (req, res, next) => {
     try {
         const pacientes = await pacienteModelo.getAll();
-        res.render('pacientes/list', { title: 'Pacientes', pacientes, ok: req.query.ok });
+        const coberturas = await coberturaModelo.getAll();
+        res.render('pacientes/list', { title: 'Pacientes', pacientes, coberturas, ok: req.query.ok });
     } catch (e) { next(e); }
 });
 
-router.get('/pacientes/nuevo', (req, res) => {
-    res.render('pacientes/new', { title: 'Nuevo paciente' });
+router.get('/pacientes/nuevo', async (req, res) => {
+    const coberturas = await coberturaModelo.getAll();
+    res.render('pacientes/new', { title: 'Nuevo paciente', coberturas });
 });
 
 router.get('/pacientes/:id/editar', async (req, res, next) => {
     try{
+        const coberturas = await coberturaModelo.getAll();
         const paciente = await pacienteModelo.findById(req.params.id);
         if (!paciente) return res.status(404).render('404', { title:'Paciente inexistente' });
-        res.render('pacientes/edit', { title: 'Editar paciente', paciente });
+        res.render('pacientes/edit', { title: 'Editar paciente', paciente, coberturas });
     } catch (e) {
         next(e);
     }
@@ -168,6 +172,27 @@ router.get('/pacientes/:id/estudios', async (req, res, next) => {
     const paciente = await pacienteModelo.findById(req.params.id);
     if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
 
+// Coberturas (vistas)
+router.get('/coberturas', async (req, res, next) => {
+    try {
+        const coberturas = await coberturaModelo.getAll();
+        res.render('coberturas/list', { title: 'Coberturas', coberturas, ok: req.query.ok });
+    } catch (e) { next(e); }
+});
+
+router.get('/coberturas/nuevo', (req, res) => {
+    res.render('coberturas/new', { title: 'Nuevo cobertura' });
+});
+
+router.get('/coberturas/:id/editar', async (req, res, next) => {
+    try{
+        const cobertura = await coberturaModelo.findById(req.params.id);
+        if (!cobertura) return res.status(404).render('404', { title:'Cobertura inexistente' });
+        res.render('coberturas/edit', { title: 'Editar cobertura', cobertura });
+    } catch (e) {
+        next(e);
+    }
+});
     const historial = await resultadoEstudioModelo.getByPacienteId(req.params.id);
     
     res.render('pacientes/estudios_list', { 

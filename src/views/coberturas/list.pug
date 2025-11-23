@@ -1,0 +1,27 @@
+extends ../layout
+block content 
+    h2 #{title} 
+    a(href='/coberturas/nuevo', class="btn btn-green") &plus; Nuevo 
+    if coberturas && coberturas.length
+        div(class="table-container")
+            table(border = '1' cellpadding = '6')
+                thead 
+                    tr 
+                        th ID 
+                        th Prestador 
+                        th Plan
+                        th Editar 
+                        th Eliminar
+                    tbody 
+                        each cobertura in coberturas 
+                            tr 
+                                td(class="txt-wrap")= cobertura.id
+                                td= cobertura.prestador 
+                                td= cobertura.plan 
+                                td 
+                                    a(href= `/coberturas/${cobertura.id}/editar`, class="btn btn-yellow") ✍🏻 Editar
+                                td
+                                    form(data-ajax data-redirect='/coberturas' method='post',action=`/api/coberturas/${cobertura.id}?_method=DELETE`, style='display:inline')
+                                        button(type='submit', class="btn btn-red", onclick=`return confirm("¿Seguro que quiere eliminar el empleado ${cobertura.nombre} ?")`) 🗑️ Eliminar
+    else 
+        p No hay coberturas cargadas.

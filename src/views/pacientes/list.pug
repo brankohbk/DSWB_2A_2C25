@@ -28,7 +28,12 @@ block content
                                 td= `${dia}/${mes}/${anio}`
                             else
                                 td= `Fecha desconocida`
-                            td= p.obraSocial
+                            if p.obraSocial
+                                - const {prestador, plan} = p.obraSocial                                    
+                                td=  `${prestador || "-"} | ${plan || "-"}`
+                            else
+                                td= 'Sin cobertura'
+
                             td= p.email
                             td= p.telefono
                             td 
