@@ -1,0 +1,33 @@
+extends ../layout
+block content
+  h2 #{title}
+  p Paciente: #{paciente.nombre} #{paciente.apellido} (DNI: #{paciente.dni})
+  
+  a(href=`/pacientes/${paciente._id}/estudios/nuevo`, class="btn btn-green") &plus; Cargar Nuevo Estudio
+  a(href='/pacientes', class="btn") ← Volver a Pacientes
+
+  if historial && historial.length
+    div(class="table-container" style="margin-top: 20px;")
+      table(border='1' cellpadding='6')
+        thead
+          tr
+            th Tipo de Estudio
+            th Fecha de Carga
+            th Cargado por
+            th Observaciones
+            th Archivo
+            th Eliminar
+        tbody
+          each r in historial
+            tr
+              td= r.tipoEstudio
+              td= new Date(r.fechaCarga).toLocaleDateString('es-AR')
+              td= r.empleado ? r.empleado.nombre : 'N/A'
+              td= r.observaciones || '-'
+              td 
+                a(href=`/files/${r.nombreArchivo}`, target="_blank", class="btn btn-blue") 📄 Ver PDF
+              td
+                form(data-ajax data-redirect=`/pacientes/${paciente._id}/estudios` method='post', action=`/api/resultados/${r._id}?_method=DELETE`, style='display:inline')
+                  button(type='submit', class="btn btn-red", onclick=`return confirm("¿Eliminar registro y archivo?")`) 🗑️
+  else
+    p No hay resultados de estudios cargados para este paciente.

@@ -38,6 +38,22 @@ HTML
             a(href='/pacientes', class="btn") 👨‍👩‍👧‍👦 Pacientes
             a(href='/insumos', class="btn") 🧪 Insumos
             a(href='/insumos/alertas', class="btn") 🚨 Chequeo de stock
+        
+        .div.menu-items 
+            if user
+                a(href='/', class="btn") 🏠 Inicio        
+                a(href='/empleados', class="btn") 👥 Empleados        
+                a(href='/turnos', class="btn") 📅 Turnos
+                a(href='/pacientes', class="btn") 🏥 Pacientes
+                a(href='/insumos', class="btn") 🧪 Insumos
+                a(href='/insumos/alertas', class="btn") 🚨 Stock
+            else
+                span(class="bienvenida") Bienvenido al Sistema
+
+            div.user-items
+                    if user
+                        a(href='/auth/logout', class="btn", style="background-color: #e74c3c; color: white;") 🚪 Salir
+                    
     main
         h1 Clínica San Fulgencio
         block content

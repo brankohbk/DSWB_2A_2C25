@@ -20,12 +20,18 @@
   "homepage": "https://github.com/brankohbk/DSWB_2A_2C25#readme",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "method-override": "^3.0.0",
     "mongoose": "^8.19.2",
     "pug": "^3.0.3",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.0",
+    "multer": "^1.4.5-lts.1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
 }

@@ -5,6 +5,7 @@ import pacienteModelo from "../models/Paciente.js";
 import TurnosService from "../services/TurnosService.js";
 import insumoModelo from "../models/Insumo.js";
 import coberturaModelo from "../models/Cobertura.js";
+import resultadoEstudioModelo from "../models/ResultadoEstudio.js";
 
 const router = Router();
 
@@ -166,6 +167,10 @@ router.get('/insumos/:id/editar', async (req, res, next) => {
     }
 });
 
+router.get('/pacientes/:id/estudios', async (req, res, next) => {
+  try {
+    const paciente = await pacienteModelo.findById(req.params.id);
+    if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
 
 // Coberturas (vistas)
 router.get('/coberturas', async (req, res, next) => {
@@ -188,7 +193,32 @@ router.get('/coberturas/:id/editar', async (req, res, next) => {
         next(e);
     }
 });
+    const historial = await resultadoEstudioModelo.getByPacienteId(req.params.id);
+    
+    res.render('pacientes/estudios_list', { 
+      title: `Estudios de ${paciente.nombre} ${paciente.apellido}`, 
+      paciente, 
+      historial,
+      baseUrl: `/files/` 
+    });
+  } catch (e) { next(e); }
+});
 
+router.get('/pacientes/:pacienteId/estudios/nuevo', async (req, res, next) => {
+  try {
+    const paciente = await pacienteModelo.findById(req.params.pacienteId);
+    if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
+
+    // TODO: Traer la lista de empleados (con rol de médicos) para el select
+    const empleados = await empleadoModelo.getAll(); 
+    
+    res.render('pacientes/estudios_new', { 
+      title: `Cargar Estudio para ${paciente.nombre}`, 
+      paciente,
+      empleados
+    });
+  } catch (e) { next(e); }
+});
 
 
 export default router;
