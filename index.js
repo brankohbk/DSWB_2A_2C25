@@ -17,6 +17,7 @@ import viewRouters from './src/routes/viewRoutes.js';
 import pacientesRoutes from './src/routes/pacientesRoutes.js';
 import insumosRoutes from './src/routes/insumosRoutes.js';
 import resultadosRoutes from './src/routes/resultadosRoutes.js';
+import fileRoutes from './src/routes/fileRoutes.js';
 
 // --- CONFIGURACIÓN INICIAL ---
 dotenv.config();
@@ -69,6 +70,7 @@ app.use('/api/pacientes', isAuthenticated, pacientesRoutes);
 app.use('/api/areas', isAuthenticated, areasRoutes);
 app.use('/api/insumos', isAuthenticated, insumosRoutes);
 app.use('/api/resultados', isAuthenticated, resultadosRoutes);
+app.use('/files', fileRoutes);
 
 // 3. Rutas de Vistas (Frontend) - Llevan isAuthenticated
 // Protegemos la vista principal para que nadie vea el panel sin loguearse
@@ -87,7 +89,7 @@ app.use((err, req, res, next) => {
     res.status(500).render('500', { title: 'Error', err });
 });
 
-const uploadsDir = path.join(__dirname, 'public', 'uploads');
+const uploadsDir = path.join(__dirname, 'files');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
