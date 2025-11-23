@@ -1,0 +1,52 @@
+extends ../layout
+block content
+    h2 #{title}
+    p Paciente: #{paciente.nombre} #{paciente.apellido}
+    
+    // IMPORTANTE: USAR UN FORMULARIO TRADICIONAL CON enctype="multipart/form-data"
+    form(method='POST', action='/api/resultados/upload', enctype="multipart/form-data" style='max-width:500px; display:flex; flex-direction:column; gap:12px;')
+        
+        // Campo oculto para identificar al paciente
+        input(type='hidden', name='pacienteId', value=paciente._id) 
+
+        label
+            span Tipo de Estudio
+            input(type='text', name='tipoEstudio', required, placeholder="Ej: Hemograma Completo")
+
+        label
+            span Cargado por (Empleado/Médico)
+            select(name='empleadoId')
+                option(value='') Seleccionar (Opcional)
+                each e in empleados
+                    option(value=e._id)= `${e.nombre} - ${e.rol}`
+
+        label
+            span Archivo PDF
+            // El nombre del campo es 'archivoPDF'
+            input(type='file', name='archivoPDF', required, accept="application/pdf")
+        
+        label
+            span Observaciones (Opcional)
+            input(type='text', name='observaciones')
+
+        div(style='display:flex; gap:12px; margin-top:16px;')
+            a(href=`/pacientes/${paciente._id}/estudios`, class="btn btn-red") ❌ Cancelar
+            button(type='submit', class="btn btn-green btn-guardar") ✅ Cargar Estudio
+            
+    // EL SCRIPT DE REDIRECCIÓN ASEGURA QUE VAYA AL LISTADO DE ESTUDIOS DEL PACIENTE
+    script.
+        const form = document.querySelector('form');
+        const pacienteId = "#{paciente._id}"; // Capturamos el ID del paciente
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const res = await fetch(form.action, { method: 'POST', body: formData });
+            
+            if (res.ok) {
+                // Redirección al listado de estudios del paciente específico
+                window.location.href = `/pacientes/${pacienteId}/estudios`; 
+            } else {
+                alert('Error al cargar el estudio: ' + (await res.json()).message);
+            }
+        });

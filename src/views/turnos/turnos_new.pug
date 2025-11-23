@@ -1,0 +1,46 @@
+extends ../layout
+block content
+    h2 #{title}
+    form(data-ajax data-redirect='/turnos' method='post', action='/api/turnos')
+        label 
+            span Paciente
+            if pacientes && pacientes.length
+                select(name='pacienteId', required)
+                    option(value='', selected) Seleccione
+                    each p in pacientes
+                        option(value=p._id)= `${p.nombre} ${p.apellido} - DNI: ${p.dni}`
+            else
+                p No hay pacientes cargados
+        label
+            span Empleado
+            if empleados && empleados.length
+                select(name='empleadoId', required)
+                    option(value='', selected) Seleccione 
+                    each e in empleados
+                        option(value=e.id)= `${e.nombre} - ${e.id}`
+                    
+            else
+                p No hay empleados cargados
+        label
+            span Inicio
+            input(type='datetime-local', name='fechaInicio', required)
+        label
+            span Fin
+            input(type='datetime-local', name='fechaFin', required)
+        label
+            span Prioridad
+            select(name='prioridad')
+                option(value='alta') alta
+                option(value='media') media
+                option(value='baja') baja
+        label
+            span Estado
+            select(name='estado')
+                option(value='pendiente') pendiente
+                option(value='en proceso') en proceso
+                option(value='finalizado') finalizado
+        label
+            span Observaciones
+            input(type='text', name='observaciones')
+        a(href='/turnos', class="btn btn-red") ❌ Cancelar
+        button(type='submit', class="btn btn-green btn-guardar") ✅ Guardar

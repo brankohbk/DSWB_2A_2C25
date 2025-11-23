@@ -33,6 +33,8 @@ block content
                             td 
                                 a(href= `/pacientes/${p._id}/editar`, class="btn btn-yellow") ✍🏻 Editar
                             td
+                                a(href=`/pacientes/${p._id}/estudios`, class="btn btn-blue") 🔬 Estudios
+                            td
                                 // Usa p._id para Mongoose/Mongo
                                 form(data-ajax data-redirect='/pacientes' method='post',action=`/api/pacientes/${p._id}?_method=DELETE`, style='display:inline')
                                     button(type='submit', class="btn btn-red", onclick=`return confirm(\"¿Seguro que quiere eliminar el paciente ${p.nombre} ${p.apellido} ?\")`) 🗑️ Eliminar

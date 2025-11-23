@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import methodOverride from 'method-override';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import fs from 'fs';
 
 
 import { isAuthenticated, userToViews } from './src/middleware/auth.js';
@@ -15,6 +16,7 @@ import areasRoutes from './src/routes/areasRoutes.js';
 import viewRouters from './src/routes/viewRoutes.js';
 import pacientesRoutes from './src/routes/pacientesRoutes.js';
 import insumosRoutes from './src/routes/insumosRoutes.js';
+import resultadosRoutes from './src/routes/resultadosRoutes.js';
 
 // --- CONFIGURACIÓN INICIAL ---
 dotenv.config();
@@ -66,6 +68,7 @@ app.use('/api/turnos', isAuthenticated, turnosRouter);
 app.use('/api/pacientes', isAuthenticated, pacientesRoutes);
 app.use('/api/areas', isAuthenticated, areasRoutes);
 app.use('/api/insumos', isAuthenticated, insumosRoutes);
+app.use('/api/resultados', isAuthenticated, resultadosRoutes);
 
 // 3. Rutas de Vistas (Frontend) - Llevan isAuthenticated
 // Protegemos la vista principal para que nadie vea el panel sin loguearse
@@ -83,6 +86,11 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).render('500', { title: 'Error', err });
 });
+
+const uploadsDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 // Inicia el servidor
 app.listen(PORT, () => {
