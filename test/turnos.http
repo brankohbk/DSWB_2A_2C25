@@ -43,3 +43,116 @@ Content-Type: application/json
 ### Eliminar un turno por ID
 DELETE http://localhost:4501/api/turnos/c355d75a-332d-459d-9621-8dab6a38d3c8
 Content-Type: application/json
+
+
+###Crear disponibiliad en la agenda:
+POST http://localhost:4501/api/turnos/horarios/
+Content-Type: application/json
+
+{
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "diaSemana": 1,
+  "horaInicio": "08:00",
+  "horaFin": "12:00",
+  "duracionTurnoMin": 30
+}
+
+###Crear una agenda con un horario de inicio >= hora de fin. (Debería dar error 400)
+POST http://localhost:4501/api/turnos/horarios
+Content-Type: application/json
+
+{
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "diaSemana": 2,
+  "horaInicio": "12:00",
+  "horaFin": "08:00",
+  "duracionTurnoMin": 30
+}
+
+###Intentar crear una agenda en un dia fuera de rango (0 Domigno.... 6 Sabado) Debería dar error 400 
+POST http://localhost:4501/api/turnos/horarios
+Content-Type: application/json
+
+{
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "diaSemana": 7,
+  "horaInicio": "08:00",
+  "horaFin": "12:00",
+  "duracionTurnoMin": 30
+}
+
+###Intentar crear una agenda con un IDMed inexistente (debería dar error 400)
+POST http://localhost:4501/api/turnos/horarios
+Content-Type: application/json
+
+{
+  "medicoId": "000000000000000000000000",
+  "diaSemana": 1,
+  "horaInicio": "08:00",
+  "horaFin": "12:00",
+  "duracionTurnoMin": 30
+}
+
+###Intentar crear una agenda duplicada (mismo médico+ mismo día) Debería dar error 400
+POST http://localhost:4501/api/turnos/horarios
+Content-Type: application/json
+
+{
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "diaSemana": 1,
+  "horaInicio": "09:00",
+  "horaFin": "13:00",
+  "duracionTurnoMin": 30
+}
+
+###Intentar sacar los turnos disponibles de un día SIN agenda: resultado (sin horarios(null) ni slots de disponibilidad)
+GET http://localhost:4501/api/turnos/disponibles?medicoId=68f4b95df09aea8408ad8ab7&fecha=2025-11-26
+Content-Type: application/json
+
+###Intentar sacar los turnos disponibles de una fecha inválida: 
+GET http://localhost:4501/api/turnos/disponibles?medicoId=68f4b95df09aea8408ad8ab7&fecha=2025-13-40
+
+
+###Obtener los turnos disponibles para un médico en una fecha: 
+GET http://localhost:4501/api/turnos/disponibles?medicoId=68f4b95df09aea8408ad8ab7&fecha=2025-11-24
+Content-Type: application/json
+
+###Reservar un turno en uno de los slots devueltos por el punto anterior:
+POST http://localhost:4501/api/turnos/reservar
+Content-Type: application/json
+
+{
+  "pacienteId": "68fa166cc0b2549e50abe432",
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "fechaHora": "2025-11-24T11:30:00.000Z",
+  "motivo": "Consulta de prueba"
+}
+
+###Volver a pedir los turnos disponibles para un médico y confirmar que la reserva anterior fue echa con éxito: 
+GET http://localhost:4501/api/turnos/disponibles?medicoId=68f4b95df09aea8408ad8ab7&fecha=2025-11-24
+Content-Type: application/json
+
+###Intentar reservar dos turnos en el mismo horario: El primer intento debería dar ok, el segundo error 400:
+# 1er intento
+POST http://localhost:4501/api/turnos/reservar
+Content-Type: application/json
+
+{
+  "pacienteId": "68fa166cc0b2549e50abe432",
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "fechaHora": "2025-11-24T12:00:00.000Z",
+  "motivo": "Doble reserva test #1"
+}
+
+###
+# 2do intento mismo horario (debería fallar)
+POST http://localhost:4501/api/turnos/reservar
+Content-Type: application/json
+
+{
+  "pacienteId": "68fa166cc0b2549e50abe432",
+  "medicoId": "68f4b95df09aea8408ad8ab7",
+  "fechaHora": "2025-11-24T12:00:00.000Z",
+  "motivo": "Doble reserva test #2"
+}
+
