@@ -87,19 +87,22 @@ router.get('/turnos/:id/actualizar', async (req, res, next) => {
 router.get('/pacientes', async (req, res, next) => {
     try {
         const pacientes = await pacienteModelo.getAll();
-        res.render('pacientes/list', { title: 'Pacientes', pacientes, ok: req.query.ok });
+        const coberturas = await coberturaModelo.getAll();
+        res.render('pacientes/list', { title: 'Pacientes', pacientes, coberturas, ok: req.query.ok });
     } catch (e) { next(e); }
 });
 
-router.get('/pacientes/nuevo', (req, res) => {
-    res.render('pacientes/new', { title: 'Nuevo paciente' });
+router.get('/pacientes/nuevo', async (req, res) => {
+    const coberturas = await coberturaModelo.getAll();
+    res.render('pacientes/new', { title: 'Nuevo paciente', coberturas });
 });
 
 router.get('/pacientes/:id/editar', async (req, res, next) => {
     try{
+        const coberturas = await coberturaModelo.getAll();
         const paciente = await pacienteModelo.findById(req.params.id);
         if (!paciente) return res.status(404).render('404', { title:'Paciente inexistente' });
-        res.render('pacientes/edit', { title: 'Editar paciente', paciente });
+        res.render('pacientes/edit', { title: 'Editar paciente', paciente, coberturas });
     } catch (e) {
         next(e);
     }

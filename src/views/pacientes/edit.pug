@@ -17,10 +17,17 @@ block content
                 type='date', 
                 name='fechaNacimiento', 
                 required, 
-                value=paciente.fechaNacimiento.toISOString().substring(0, 10)
+                //- value=paciente.fechaNacimiento.toISOString().substring(0, 10)
             )
         label Obra Social
-            input(type='text', name='obraSocial', required, value=paciente.obraSocial)
+            if coberturas && coberturas.length
+                select(name='obraSocial', required)
+                    option(value='', selected) Seleccione 
+                    each cobertura in coberturas
+                        option(value=cobertura.id)= `${cobertura.prestador} | ${cobertura.plan}`
+                    
+            else
+                p No hay coberturas cargadas
         label Teléfono
             input(type='text', name='telefono', value=paciente.telefono)
         label Email
