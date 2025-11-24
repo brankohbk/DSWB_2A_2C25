@@ -17,7 +17,7 @@ const Cobertura = mongoose.model('Cobertura', coberturaSchema);
 
 // Función: Obtener todos los Coberturas
 async function getAll() {
-  return await Cobertura.find();
+  return await Cobertura.find().sort({prestador:1,plan:1});
 }
 async function findById(id) {
   return await Cobertura.findById(id);

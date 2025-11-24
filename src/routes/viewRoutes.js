@@ -25,9 +25,9 @@ router.get('/empleados/nuevo', (req, res) => {
 });
 
 router.get('/empleados/:id/editar', async (req, res, next) => {
-    try{
+    try {
         const empleado = await empleadoModelo.findById(req.params.id);
-        if (!empleado) return res.status(404).render('404', { title:'Empleado inexistente' });
+        if (!empleado) return res.status(404).render('404', { title: 'Empleado inexistente' });
         res.render('empleados/edit', { title: 'Editar empleado', empleado });
     } catch (e) {
         next(e);
@@ -37,30 +37,30 @@ router.get('/empleados/:id/editar', async (req, res, next) => {
 
 
 // Turnos (vistas)
-router.get('/turnos', async (req, res,next) => {
-    try{
-      //const turnos = await turnoModelo.getAll();
+router.get('/turnos', async (req, res, next) => {
+    try {
+        //const turnos = await turnoModelo.getAll();
         const turnosConDetalle = await TurnosService.listarTurnosConDetalle();
         res.render('turnos/list', {
-        title: 'Turnos',
-        turnos: turnosConDetalle,
-        ok: req.query.ok
+            title: 'Turnos',
+            turnos: turnosConDetalle,
+            ok: req.query.ok
         });
     } catch (e) {
         next(e);
     }
-    
+
 });
 
-router.get('/turnos/nuevo', async (req, res, next) => {    
-    try{
+router.get('/turnos/nuevo', async (req, res, next) => {
+    try {
         const empleados = await empleadoModelo.getAll();
         const pacientes = await pacienteModelo.getAll();
         res.render('turnos/new', {
-        title: 'Nuevo turno',
-        empleados,
-        pacientes,
-        ok: req.query.ok
+            title: 'Nuevo turno',
+            empleados,
+            pacientes,
+            ok: req.query.ok
         });
     } catch (e) {
         next(e);
@@ -68,11 +68,11 @@ router.get('/turnos/nuevo', async (req, res, next) => {
 });
 
 router.get('/turnos/:id/actualizar', async (req, res, next) => {
-    try{
+    try {
         const empleados = await empleadoModelo.getAll();
         const pacientes = await pacienteModelo.getAll();
         const turno = await turnoModelo.getById(req.params.id);
-        if (!turno) return res.status(404).render('404', { title:'Turno inexistente' });
+        if (!turno) return res.status(404).render('404', { title: 'Turno inexistente' });
         res.render('turnos/actualizar', {
             title: 'Actualizar turno',
             turno,
@@ -99,10 +99,10 @@ router.get('/pacientes/nuevo', async (req, res) => {
 });
 
 router.get('/pacientes/:id/editar', async (req, res, next) => {
-    try{
+    try {
         const coberturas = await coberturaModelo.getAll();
         const paciente = await pacienteModelo.findById(req.params.id);
-        if (!paciente) return res.status(404).render('404', { title:'Paciente inexistente' });
+        if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
         res.render('pacientes/edit', { title: 'Editar paciente', paciente, coberturas });
     } catch (e) {
         next(e);
@@ -116,9 +116,9 @@ router.get('/insumos', async (req, res, next) => {
         const insumos = await insumoModelo.find().lean();
 
         res.render('insumos/list', {
-        title: 'Insumos',
-        insumos,
-        ok: req.query.ok
+            title: 'Insumos',
+            insumos,
+            ok: req.query.ok
         });
     } catch (e) {
         next(e);
@@ -168,9 +168,37 @@ router.get('/insumos/:id/editar', async (req, res, next) => {
 });
 
 router.get('/pacientes/:id/estudios', async (req, res, next) => {
-  try {
-    const paciente = await pacienteModelo.findById(req.params.id);
-    if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
+    try {
+        const paciente = await pacienteModelo.findById(req.params.id);
+        if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
+
+
+        const historial = await resultadoEstudioModelo.getByPacienteId(req.params.id);
+
+        res.render('pacientes/estudios_list', {
+            title: `Estudios de ${paciente.nombre} ${paciente.apellido}`,
+            paciente,
+            historial,
+            baseUrl: `/files/`
+        });
+    } catch (e) { next(e); }
+});
+
+router.get('/pacientes/:pacienteId/estudios/nuevo', async (req, res, next) => {
+    try {
+        const paciente = await pacienteModelo.findById(req.params.pacienteId);
+        if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
+
+        // TODO: Traer la lista de empleados (con rol de médicos) para el select
+        const empleados = await empleadoModelo.getAll();
+
+        res.render('pacientes/estudios_new', {
+            title: `Cargar Estudio para ${paciente.nombre}`,
+            paciente,
+            empleados
+        });
+    } catch (e) { next(e); }
+});
 
 // Coberturas (vistas)
 router.get('/coberturas', async (req, res, next) => {
@@ -185,39 +213,13 @@ router.get('/coberturas/nuevo', (req, res) => {
 });
 
 router.get('/coberturas/:id/editar', async (req, res, next) => {
-    try{
+    try {
         const cobertura = await coberturaModelo.findById(req.params.id);
-        if (!cobertura) return res.status(404).render('404', { title:'Cobertura inexistente' });
+        if (!cobertura) return res.status(404).render('404', { title: 'Cobertura inexistente' });
         res.render('coberturas/edit', { title: 'Editar cobertura', cobertura });
     } catch (e) {
         next(e);
     }
-});
-    const historial = await resultadoEstudioModelo.getByPacienteId(req.params.id);
-    
-    res.render('pacientes/estudios_list', { 
-      title: `Estudios de ${paciente.nombre} ${paciente.apellido}`, 
-      paciente, 
-      historial,
-      baseUrl: `/files/` 
-    });
-  } catch (e) { next(e); }
-});
-
-router.get('/pacientes/:pacienteId/estudios/nuevo', async (req, res, next) => {
-  try {
-    const paciente = await pacienteModelo.findById(req.params.pacienteId);
-    if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
-
-    // TODO: Traer la lista de empleados (con rol de médicos) para el select
-    const empleados = await empleadoModelo.getAll(); 
-    
-    res.render('pacientes/estudios_new', { 
-      title: `Cargar Estudio para ${paciente.nombre}`, 
-      paciente,
-      empleados
-    });
-  } catch (e) { next(e); }
 });
 
 

@@ -30,20 +30,12 @@ HTML
                 else alert('Error: ' + (await res.text()));
             });
     header
-        nav
-            a(href='/', class="btn") 🏠 Inicio        
-            a(href='/empleados', class="btn") 👥 Empleados        
-            a(href='/turnos', class="btn") 📅 Turnos
-            a(href='/coberturas', class="btn") ⚕️ Coberturas
-            a(href='/pacientes', class="btn") 👨‍👩‍👧‍👦 Pacientes
-            a(href='/insumos', class="btn") 🧪 Insumos
-            a(href='/insumos/alertas', class="btn") 🚨 Chequeo de stock
-        
-        .div.menu-items 
+        nav 
             if user
                 a(href='/', class="btn") 🏠 Inicio        
                 a(href='/empleados', class="btn") 👥 Empleados        
                 a(href='/turnos', class="btn") 📅 Turnos
+                a(href='/coberturas', class="btn") ⚕️ Coberturas
                 a(href='/pacientes', class="btn") 🏥 Pacientes
                 a(href='/insumos', class="btn") 🧪 Insumos
                 a(href='/insumos/alertas', class="btn") 🚨 Stock

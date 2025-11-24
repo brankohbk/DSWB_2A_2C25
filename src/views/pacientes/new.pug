@@ -27,12 +27,11 @@ block content
             else
                 p No hay coberturas cargadas            
         label
+            span Email
+            input(type='email', name='email')
+        label
             span Teléfono (Opcional)
             input(type='text', name='telefono')
-            
-        label
-            span Email (Opcional)
-            input(type='email', name='email')
         
         a(href='/pacientes', class="btn btn-red") ❌ Cancelar
         button(type='submit', class="btn btn-green btn-guardar") ✅ Guardar

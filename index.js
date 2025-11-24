@@ -71,6 +71,7 @@ app.use('/api/pacientes', isAuthenticated, pacientesRoutes);
 app.use('/api/areas', isAuthenticated, areasRoutes);
 app.use('/api/insumos', isAuthenticated, insumosRoutes);
 app.use('/api/resultados', isAuthenticated, resultadosRoutes);
+app.use('/api/coberturas', isAuthenticated, coberturasRoutes)
 app.use('/files', fileRoutes);
 
 // 3. Rutas de Vistas (Frontend) - Llevan isAuthenticated
@@ -78,9 +79,6 @@ app.use('/files', fileRoutes);
 app.use('/', isAuthenticated, viewRouters);
 
 // --- MANEJO DE ERRORES ---
-
-  // Rutas de coberturas
-  .use('/api/coberturas', coberturasRoutes)
 
 // Error 404: No encontrado
 app.use((req, res, next) => {
