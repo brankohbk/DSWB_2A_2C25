@@ -14,21 +14,27 @@ block content
                         th Email 
                         th Teléfono
                         th Editar 
+                        th Estudios
                         th Eliminar
                 tbody 
                     each p in pacientes 
                         tr 
                             td= `${p.nombre} ${p.apellido}` 
                             td= p.dni 
-                            - const dia = p.fechaNacimiento.getUTCDate().toString().padStart(2, '0')
-                            - const mes = (p.fechaNacimiento.getUTCMonth() + 1).toString().padStart(2, '0')
-                            - const anio = p.fechaNacimiento.getUTCFullYear()
-                            td= `${dia}/${mes}/${anio}`
+                            if p.fechaNacimiento
+                                - const dia = p.fechaNacimiento.getUTCDate().toString().padStart(2, '0')
+                                - const mes = (p.fechaNacimiento.getUTCMonth() + 1).toString().padStart(2, '0')
+                                - const anio = p.fechaNacimiento.getUTCFullYear()
+                                td= `${dia}/${mes}/${anio}`
+                            else
+                                td= `Fecha desconocida`
                             td= p.obraSocial
                             td= p.email
                             td= p.telefono
                             td 
                                 a(href= `/pacientes/${p._id}/editar`, class="btn btn-yellow") ✍🏻 Editar
+                            td
+                                a(href=`/pacientes/${p._id}/estudios`, class="btn btn-blue") 🔬 Ver/Agregar
                             td
                                 // Usa p._id para Mongoose/Mongo
                                 form(data-ajax data-redirect='/pacientes' method='post',action=`/api/pacientes/${p._id}?_method=DELETE`, style='display:inline')

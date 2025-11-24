@@ -22,7 +22,7 @@ async function getById(id) {
   return await Turno.findById(id);
 }
 async function create(newTurno) {
- return await Turno.create(newTurno)
+  return await Turno.create(newTurno)
 }
 async function update(id, doc) {
   return await Turno.findByIdAndUpdate(id, doc, { new: true });

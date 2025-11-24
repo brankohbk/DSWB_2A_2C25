@@ -1,6 +1,7 @@
 import bycrpt from "bcrypt";
 import usuarioModelo from "../models/Usuario.js";
 import pacienteModelo from "../models/Paciente.js";
+import User from "../models/User.js";
 
 //Registro del paciente desde la web:
 export const registerPaciente = async (req, res) => {
@@ -16,13 +17,25 @@ export const registerPaciente = async (req, res) => {
         const nombreFormateado = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
         const apellidoFormateado = apellido.charAt(0).toUpperCase() + apellido.slice(1).toLowerCase();
 
-        //Paso 1: Verificar que el paciente no exista
-        const usuarioExistente = await usuarioModelo.findOne({ 
-            $or: [{ email: emailLowerCase }, { dni: dni }]});
+        // Paso 1: Verificar que NO exista ni un usuario con ese mail ni un paciente con ese DNI
+        // Paso 1: Validar que NO exista otro usuario con el mismo email
+        const usuarioExistente = await usuarioModelo.findOne({ email: emailLowerCase });
 
-        if (usuarioExistente) {
-            return res.status(409).json({ message: 'Ya existe un usuario con ese DNI o email.' });
-        }
+            if (usuarioExistente) {
+            return res.status(409).json({ 
+                message: 'Ya existe un usuario registrado con ese email.' 
+            });
+            }
+
+        // Paso 1b: Validar que NO exista otro paciente con el mismo DNI
+        const pacienteExistente = await pacienteModelo.findOne({ dni });
+
+            if (pacienteExistente) {
+            return res.status(409).json({ 
+                message: 'Ya existe un paciente con ese DNI.' 
+            });
+            }
+
 
         //Paso 2 : Hashear la contraseña Y generar nombre de usuario
         const hashedPassword = await bycrpt.hash(password, 10);
@@ -45,6 +58,12 @@ export const registerPaciente = async (req, res) => {
             pacienteId: newPaciente._id,
             rol: "paciente",
             primerIngreso: false
+        });
+
+        //PASO 4 BIS: crear el usuario de LOGIN en la colección `users`
+        await User.create({
+            username: nombreUsuario,
+            password  // sin hashear, el hook del modelo la encripta
         });
 
         //Paso 5: Enviar respuesta

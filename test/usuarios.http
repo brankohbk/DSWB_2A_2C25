@@ -3,29 +3,14 @@ POST http://localhost:4501/api/usuarios/registerPaciente
 Content-Type: application/json
 
 {
-    "nombre": "Lucía",
-    "apellido": "Gómez",
-    "email": "lucia.gomez@ejemplo.com",
-    "dni": "45892345",
-    "password": "lucia_1234!"
+    "nombre": "Patricia",
+    "apellido": "Fernandez",
+    "email": "patricia.fernandez@ejemplo.com",
+    "dni": "45678912",
+    "password": "_1234!"
 }
+
 ###
-
-## Registro de un nuevo paciente desde la web: 
-POST http://localhost:4501/api/usuarios/registerPaciente
-Content-Type: application/json
-
-{
-    "nombre": "Pedro Marcelo",
-    "apellido": "Quintero",
-    "email": "pedrito.quinto@ejemplo.com",
-    "dni": "38569210",
-    "password": "Pedri_1234!"
-}
-###
-
-
-
 
 ##Intentar registrar un paciente ya existente (por DNI o mail)
 POST http://localhost:4501/api/usuarios/registerPaciente

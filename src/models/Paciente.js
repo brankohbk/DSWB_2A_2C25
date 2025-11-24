@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const pacienteSchema = new mongoose.Schema({
   nombre: { type: String, required: true, trim: true },
   apellido: { type: String, required: true, trim: true },
-  dni: { type: String, required: true, unique: true, trim: true },
+  dni: { type: String, required: true, unique: false, trim: true },
   fechaNacimiento: { type: Date},
   obraSocial: { type: String },
   telefono: { type: String},
-  email: { type: String, required: true, unique: true, sparse: true },
+  email: { type: String, required: true, unique: false, sparse: true },
   registroParcial: { type: Boolean, default: true}
 }, {
   timestamps: true

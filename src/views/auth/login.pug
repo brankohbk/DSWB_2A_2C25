@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+    div.login-card(style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;")
+        h2 Iniciar Sesión
+        
+        // data-redirect es a donde nos lleva si el login es correcto
+        form(data-ajax data-redirect='/pacientes' method='POST' action='/auth/login' class="login-form")
+            
+            div.form-group
+                label(for="username") Usuario
+                input(type='text' name='username' id="username" required placeholder="Ej: admin")
+            
+            div.form-group(style="margin-top: 15px;")
+                label(for="password") Contraseña
+                input(type='password' name='password' id="password" required placeholder="••••••")
+            
+            button(type='submit' class="btn btn-green btn-block") Ingresar 🔐
+
+            p ¿Todavía no tenés cuenta?
+            a(href="/registro" class="btn btn-secondary") Registrate
+

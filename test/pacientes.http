@@ -1,3 +1,11 @@
+POST http://localhost:4501/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
+
 ### Listar todos los pacientes
 GET http://localhost:4501/api/pacientes
 Content-Type: application/json
@@ -70,3 +78,8 @@ Content-Type: application/json
 
 ##Listar todos los pacientes parciales:
 GET http://localhost:4501/api/pacientes/incompletos
+
+### Borrar TODOS los pacientes
+DELETE http://localhost:4501/api/pacientes
+Content-Type: application/json
+###

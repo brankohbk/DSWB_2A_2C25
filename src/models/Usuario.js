@@ -32,7 +32,7 @@ const usuariosSchema = new Schema({
     timestamps: true
 });
 
-const Usuarios = model('Usuarios', usuariosSchema);
+const Usuario = model('Usuario', usuariosSchema);
 
 async function getAll() {
     return await Usuario.find();
@@ -67,4 +67,4 @@ const usuarioModelo = {
     findOne
 };
 
-export default Usuarios;
+export default Usuario;

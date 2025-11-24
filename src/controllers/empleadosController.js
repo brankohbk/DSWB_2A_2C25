@@ -1,6 +1,7 @@
 import empleadoModelo  from '../models/Empleado.js';
 import usuarioModelo from '../models/Usuario.js';
 import bcrypt from 'bcrypt';
+import User from "../models/User.js";
 
 export const getAllEmpleados = async (req, res) => {
   try {
@@ -51,6 +52,12 @@ export const createEmpleadoConUsuario = async (req, res) => {
       rol: rol.toLowerCase(),
       primerIngreso: true,}); //-->Luego del primer ingreso cambia de estado para obligar al empleado a cambiar la pass
     
+      //Paso 3BIS: 
+      await User.create({
+          username: nombreUsuario,
+          password  // sin hashear, el hook del modelo la encripta
+      });
+
     //Paso 4: Enviar respuesta
     res.status(201).json({ message: 'Empleado y usuario creados exitosamente', empleado: newEmpleado, usuario: newUsuario });
   } catch (error) {

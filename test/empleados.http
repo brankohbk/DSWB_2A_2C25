@@ -1,6 +1,15 @@
+
 ### Verificar que el servidor está corriendo (Nos devuelve la página de inicio)
 GET http://localhost:4501/
 ###
+
+POST http://localhost:4501/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
 
 ### Recuperar todos los empleados
 GET http://localhost:4501/api/empleados
@@ -17,6 +26,19 @@ Content-Type: application/json
   "nombreUsuario": "PatPastorutti"
 }
 ###
+
+### Crear un empleado con POST
+POST http://localhost:4501/api/empleados
+Content-Type: application/json
+
+{
+  "nombre": "Cristian Perez",
+  "rol": "medico",
+  "area": "Atención Médica",
+  "nombreUsuario": "Cristian.Perez"
+}
+###
+
 
 ### Recuperar un empleado por ID
 GET http://localhost:4501/api/empleados/27c33b13-a4bc-478c-8d74-eb7ec123ed1c

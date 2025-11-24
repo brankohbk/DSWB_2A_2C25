@@ -1,0 +1,141 @@
+//-extends ../layout
+
+//*block content
+    h1.text-center Agenda de Turnos
+
+    //- Solo pacientes y administrativos: selección de médico y fecha
+    if esPaciente || esAdministrativo
+        form#filtroAgenda(action='/turnos/agenda', method='GET', style="margin-bottom:20px;")
+            .form-group
+                label(for="medicoId") Seleccionar Médico
+                select(name="medicoId" id="medicoId" class="form-control")
+                    each medico in medicos
+                        option(value=medico._id selected=(medico._id.toString() === medicoSeleccionado?._id.toString()))= medico.nombre
+            .form-group(style="margin-top:10px;")
+                label(for="fecha") Fecha
+                input(type='date', name='fecha', id='fecha', value=fechaSeleccionada, class='form-control')
+            button(type='submit' class='btn btn-green') Filtrar
+
+    hr
+
+    //- Contenido según rol
+    if esPaciente
+        h2 Mis turnos / Horarios disponibles
+        if disponibilidad && disponibilidad.length
+            table.table
+                thead
+                    tr
+                        th Hora
+                        th Estado
+                        th Acciones
+                tbody
+                    each slot in disponibilidad
+                        tr
+                            td= slot.hora
+                            td= slot.disponible ? 'Libre' : 'Ocupado'
+                            td
+                                if slot.disponible
+                                    form(method='POST', action='/turnos/reservar')
+                                        input(type='hidden', name='medicoId', value=medicoSeleccionado._id)
+                                        input(type='hidden', name='fechaHora', value=slot.fechaHora)
+                                        button(type='submit' class='btn btn-green btn-sm') Reservar
+        else
+            p.text-muted No hay horarios disponibles para la fecha seleccionada.
+
+    if esMedico
+        h2 Agenda del día
+        if turnosDia && turnosDia.length
+            table.table
+                thead
+                    tr
+                        th Hora
+                        th Paciente
+                        th Estado
+                        th Motivo
+                tbody
+                    each t in turnosDia
+                        tr
+                            td= t.hora
+                            td= t.paciente?.nombre + ' ' + t.paciente?.apellido
+                            td= t.estado
+                            td= t.motivo || '-'
+        else
+            p.text-muted No tenés turnos programados para hoy.
+
+    if esAdministrativo
+        //- Tabs para el administrador
+        ul.nav.nav-tabs
+            li.nav-item
+                a.nav-link.active(href="#tab1", data-bs-toggle="tab") Horarios disponibles
+            li.nav-item
+                a.nav-link(href="#tab2", data-bs-toggle="tab") Agenda del día
+            li.nav-item
+                a.nav-link(href="#tab3", data-bs-toggle="tab") Agendas cargadas
+
+        .tab-content(style="margin-top:20px;")
+            //- Tab 1: Horarios disponibles
+            .tab-pane.fade.show.active#tab1
+                if disponibilidad && disponibilidad.length
+                    table.table
+                        thead
+                            tr
+                                th Hora
+                                th Médico
+                                th Estado
+                                th Acciones
+                        tbody
+                            each slot in disponibilidad
+                                tr
+                                    td= slot.hora
+                                    td= medicoSeleccionado?.nombre || '-'
+                                    td= slot.disponible ? 'Libre' : 'Ocupado'
+                                    td
+                                        if slot.disponible
+                                            form(method='POST', action='/turnos/reservar')
+                                                input(type='hidden', name='medicoId', value=medicoSeleccionado._id)
+                                                input(type='hidden', name='fechaHora', value=slot.fechaHora)
+                                                button(type='submit' class='btn btn-green btn-sm') Reservar
+                else
+                    p.text-muted No hay horarios disponibles.
+
+            //- Tab 2: Agenda del día
+            .tab-pane.fade#tab2
+                if turnosDia && turnosDia.length
+                    table.table
+                        thead
+                            tr
+                                th Hora
+                                th Paciente
+                                th Estado
+                                th Motivo
+                        tbody
+                            each t in turnosDia
+                                tr
+                                    td= t.hora
+                                    td= t.paciente?.nombre + ' ' + t.paciente?.apellido
+                                    td= t.estado
+                                    td= t.motivo || '-'
+                else
+                    p.text-muted No hay turnos programados para hoy.
+
+            //- Tab 3: Agendas cargadas
+            .tab-pane.fade#tab3
+                if agendas && agendas.length
+                    table.table
+                        thead
+                            tr
+                                th Médico
+                                th Día
+                                th Hora Inicio
+                                th Hora Fin
+                                th Duración
+                        tbody
+                            each a in agendas
+                                tr
+                                    td= a.medico.nombre
+                                    td= ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'][a.diaSemana]
+                                    td= a.horaInicio
+                                    td= a.horaFin
+                                    td= a.duracionTurnoMin + ' min'
+                else
+                    p.text-muted No hay agendas cargadas.

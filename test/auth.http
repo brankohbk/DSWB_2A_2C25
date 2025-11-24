@@ -1,0 +1,19 @@
+@api = http://localhost:4501
+
+### 1. Iniciar Sesión (LOGIN)
+# Al ejecutar esto, si es exitoso, recibirás una Cookie en la respuesta.
+# El VS Code Rest Client guardará esa cookie para las siguientes peticiones.
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
+
+### 2. Probar una ruta protegida (Para ver si el login funcionó)
+# Si te devuelve los datos del usuario o la lista, es que estás logueado.
+GET {{api}}/api/pacientes
+
+### 3. Cerrar Sesión (LOGOUT)
+GET {{api}}/auth/logout
