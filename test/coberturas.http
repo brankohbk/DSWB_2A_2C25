@@ -1,0 +1,34 @@
+### Verificar que el servidor está corriendo (Nos devuelve la página de inicio)
+GET http://localhost:4501/
+###
+
+### Recuperar todos los coberturas
+GET http://localhost:4501/api/coberturas
+###
+
+### Crear un empleado con POST
+POST http://localhost:4501/api/coberturas
+Content-Type: application/json
+
+{
+  "prestador": "Prevención Salud",
+  "plan": "A-2"
+}
+###
+
+### Recuperar un empleado por ID
+GET http://localhost:4501/api/coberturas/27c33b13-a4bc-478c-8d74-eb7ec123ed1c
+###
+
+### Actualizar un dato de un empleado con PUT
+PUT http://localhost:4501/api/coberturas/cf24e112-33b6-4387-989e-af850072acfe
+Content-Type: application/json
+
+{
+   "prestador": "OSECAC",
+}
+###
+
+### Borrar un empleado con DELETE
+DELETE http://localhost:4501/api/coberturas/cf24e112-33b6-4387-989e-af850072acfe
+###

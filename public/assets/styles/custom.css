@@ -12,12 +12,15 @@ body {
 nav {
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 100dvw;
+  flex-wrap: wrap;
 }
-.menu-items, .user-items {
+.user-items {
+  margin-left: auto;
     display: flex;
     align-items: center;
     gap: 0.5rem; /* Espacio entre botones del mismo grupo */
@@ -73,6 +76,7 @@ table {
   }
   td {
     text-wrap-mode: nowrap;
+    min-width: 10ch;
   }
 }
 

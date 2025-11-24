@@ -5,7 +5,7 @@ const pacienteSchema = new mongoose.Schema({
   apellido: { type: String, required: true, trim: true },
   dni: { type: String, required: true, unique: true, trim: true },
   fechaNacimiento: { type: Date, required: true },
-  obraSocial: { type: String, required: true, trim: true },
+  obraSocial: { type: mongoose.Schema.Types.ObjectId, ref:'Cobertura', required: true,},
   telefono: { type: String, trim: true },
   email: { type: String, trim: true, unique: true, sparse: true }
 }, {
@@ -15,10 +15,10 @@ const pacienteSchema = new mongoose.Schema({
 const Paciente = mongoose.model('Paciente', pacienteSchema);
 
 async function getAll() {
-  return await Paciente.find();
+  return await Paciente.find().populate("obraSocial");
 }
 async function findById(id) {
-  return await Paciente.findById(id);
+  return await Paciente.findById(id).populate("obraSocial");
 }
 async function create(newPaciente) {
   return await Paciente.create(newPaciente);
