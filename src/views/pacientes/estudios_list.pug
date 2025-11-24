@@ -3,8 +3,10 @@ block content
   h2 #{title}
   p Paciente: #{paciente.nombre} #{paciente.apellido} (DNI: #{paciente.dni})
   
-  a(href=`/pacientes/${paciente._id}/estudios/nuevo`, class="btn btn-green") &plus; Cargar Nuevo Estudio
-  a(href='/pacientes', class="btn") ← Volver a Pacientes
+  div(style="display: flex; gap: 10px; margin-bottom: 20px;")
+    a(href=`/pacientes/${paciente._id}/estudios/nuevo`, class="btn btn-green") &plus; Cargar Nuevo Estudio
+    a(href=`/pacientes/${paciente._id}/consultas`, class="btn btn-blue") ← Volver a Historial Clínico 👨‍⚕️
+    a(href='/pacientes', class="btn") ← Volver a Pacientes
 
   if historial && historial.length
     div(class="table-container" style="margin-top: 20px;")

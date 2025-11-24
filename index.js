@@ -18,6 +18,7 @@ import pacientesRoutes from './src/routes/pacientesRoutes.js';
 import insumosRoutes from './src/routes/insumosRoutes.js';
 import resultadosRoutes from './src/routes/resultadosRoutes.js';
 import fileRoutes from './src/routes/fileRoutes.js';
+import consultasRoutes from './src/routes/consultasRoutes.js';
 
 // --- CONFIGURACIÓN INICIAL ---
 dotenv.config();
@@ -70,6 +71,7 @@ app.use('/api/pacientes', isAuthenticated, pacientesRoutes);
 app.use('/api/areas', isAuthenticated, areasRoutes);
 app.use('/api/insumos', isAuthenticated, insumosRoutes);
 app.use('/api/resultados', isAuthenticated, resultadosRoutes);
+app.use('/api/consultas', isAuthenticated, consultasRoutes);
 app.use('/files', fileRoutes);
 
 // 3. Rutas de Vistas (Frontend) - Llevan isAuthenticated

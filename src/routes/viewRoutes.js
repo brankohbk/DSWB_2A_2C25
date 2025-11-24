@@ -5,6 +5,7 @@ import pacienteModelo from "../models/Paciente.js";
 import TurnosService from "../services/TurnosService.js";
 import insumoModelo from "../models/Insumo.js";
 import resultadoEstudioModelo from "../models/ResultadoEstudio.js";
+import consultaMedicaModelo from "../models/ConsultaMedica.js";
 
 const router = Router();
 
@@ -195,5 +196,36 @@ router.get('/pacientes/:pacienteId/estudios/nuevo', async (req, res, next) => {
   } catch (e) { next(e); }
 });
 
+router.get('/pacientes/:id/consultas', async (req, res, next) => {
+    try {
+        const paciente = await pacienteModelo.findById(req.params.id);
+        if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
+
+        const historial = await consultaMedicaModelo.getByPacienteId(req.params.id);
+        
+        res.render('pacientes/consultas_list', { 
+            title: `Historial Clínico de ${paciente.nombre} ${paciente.apellido}`, 
+            paciente, 
+            historial 
+        });
+    } catch (e) { next(e); }
+});
+
+// Formulario de nueva consulta (vista) - RF5
+router.get('/pacientes/:pacienteId/consultas/nueva', async (req, res, next) => {
+    try {
+        const paciente = await pacienteModelo.findById(req.params.pacienteId);
+        if (!paciente) return res.status(404).render('404', { title: 'Paciente inexistente' });
+
+        // Necesitamos la lista de médicos (Empleados)
+        const medicos = await empleadoModelo.getAll(); 
+        
+        res.render('pacientes/consultas_new', { 
+            title: `Registrar Consulta para ${paciente.nombre}`, 
+            paciente,
+            medicos
+        });
+    } catch (e) { next(e); }
+});
 
 export default router;

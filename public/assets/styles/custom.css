@@ -222,3 +222,24 @@ form.login-form {
     margin-top: 0.5rem;
     justify-content: center;
 }
+
+.historial-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.consulta-card {
+    flex: 0 0 calc(33.333% - 20px); 
+    max-width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    min-width: 300px;
+}
+
+@media (max-width: 900px) {
+    .consulta-card {
+        flex: 0 0 calc(100% - 20px);
+        max-width: 100%;
+    }
+}
