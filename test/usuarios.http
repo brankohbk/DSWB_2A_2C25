@@ -3,11 +3,11 @@ POST http://localhost:4501/api/usuarios/registerPaciente
 Content-Type: application/json
 
 {
-    "nombre": "Patricia",
-    "apellido": "Fernandez",
-    "email": "patricia.fernandez@ejemplo.com",
-    "dni": "45678912",
-    "password": "_1234!"
+    "nombre": "Florencia",
+    "apellido": "Gomez",
+    "email": "flor_g@ejemplo.com",
+    "dni": "21562341",
+    "password": "flor_1234!"
 }
 
 ###
