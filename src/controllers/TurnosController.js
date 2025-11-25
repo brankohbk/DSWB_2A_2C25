@@ -61,6 +61,53 @@ class TurnosController {
       res.status(400).json({ error: error.message });
     }
   }
+
+// Funciones destinadas para la reserva de turnos por parte de un paciente:
+
+// Obtener horarios disponibles para un médico en una fecha
+  static async horariosDisponibles(req, res) {
+    try {
+      const { medicoId, fecha } = req.query; // ?medicoId=...&fecha=YYYY-MM-DD
+      const slotsLibres = await TurnosService.obtenerHorariosDisponibles({ medicoId, fecha });
+      res.json(slotsLibres);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  // Reservar un turno de agenda (paciente + médico + fecha/hora)
+  static async reservarTurnoAgenda(req, res) {
+    try {
+      const data = req.body; // { pacienteId, medicoId, fechaHora, motivo }
+      const turno = await TurnosService.reservarTurnoAgenda(data);
+      res.status(201).json(turno);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+    static async crearHorarioMedico(req, res) {
+      console.log('>>> POST /turnos/horarios alcanzó TurnosController.crearHorarioMedico');
+    try {
+      const horario = await TurnosService.crearHorarioMedico(req.body);
+      res.status(201).json(horario);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
+  static async listarHorariosMedico(req, res) {
+    try {
+      const { medicoId } = req.params;
+      const horarios = await TurnosService.listarHorariosMedico(medicoId);
+      res.json(horarios);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
 }
+
+
 
 export default TurnosController;

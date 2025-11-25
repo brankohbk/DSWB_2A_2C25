@@ -2,6 +2,7 @@ import { Router } from 'express';
 import express from 'express';
 import TurnosController from '../controllers/TurnosController.js';
 
+
 // const router = express.Router();
 const router = Router();
 
@@ -31,6 +32,10 @@ function validarTurno(req, res, next) {
 }
 
 // Rutas para Turnos
+router.get('/horarios/:medicoId', TurnosController.listarHorariosMedico);
+router.post('/horarios', TurnosController.crearHorarioMedico);
+router.get('/disponibles', TurnosController.horariosDisponibles);
+router.post('/reservar', TurnosController.reservarTurnoAgenda);
 router.get('/', TurnosController.listarTurnos);           
 router.get('/:id', TurnosController.obtenerTurno);       
 router.post('/', validarTurno, TurnosController.crearTurno); 

@@ -20,11 +20,25 @@ POST http://localhost:4501/api/empleados
 Content-Type: application/json
 
 {
-  "nombre": "Marcos Pérez",
-  "rol": "Médico",
-  "area": "Atención Médica"
+  "nombre": "Patricia Pastorutti",
+  "rol": "medico",
+  "area": "Atención Médica",
+  "nombreUsuario": "PatPastorutti"
 }
 ###
+
+### Crear un empleado con POST
+POST http://localhost:4501/api/empleados
+Content-Type: application/json
+
+{
+  "nombre": "Cristian Perez",
+  "rol": "medico",
+  "area": "Atención Médica",
+  "nombreUsuario": "Cristian.Perez"
+}
+###
+
 
 ### Recuperar un empleado por ID
 GET http://localhost:4501/api/empleados/27c33b13-a4bc-478c-8d74-eb7ec123ed1c

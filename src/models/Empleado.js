@@ -27,7 +27,7 @@ async function findById(id) {
   return await Empleado.findById(id);
 }
 async function create(newEmpleado) {
- return await Empleado.create(newEmpleado)
+  return await Empleado.create(newEmpleado)
 }
 async function update(id, doc) {
   return await Empleado.findByIdAndUpdate(id, doc, { new: true });

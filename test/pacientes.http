@@ -27,6 +27,33 @@ Content-Type: application/json
 }
 ###
 
+### Crear un nuevo paciente con POST
+POST http://localhost:4501/api/pacientes
+Content-Type: application/json
+
+{
+  "nombre": "Joaquín",
+  "apellido": "Torres",
+  "dni": "45123698",
+  "fechaNacimiento": "2005-05-15T00:00:00.000Z",
+  "obraSocial": "OSDE",
+  "telefono": "1156239874",
+  "email": "el_joaco_torres@mail.com"
+}
+###
+
+### Crear un nuevo paciente parcial por urgencia
+POST http://localhost:4501/api/pacientes
+Content-Type: application/json
+
+{
+  "nombre": "Mariana",
+  "apellido": "Acuña",
+  "dni": "30526148",
+  "email": "mariana_acu@mail.com"
+}
+###
+
 ### Recuperar un paciente por ID
 GET http://localhost:4501/api/pacientes/68f69ed4683334303c882514
 Content-Type: application/json
@@ -34,15 +61,25 @@ Content-Type: application/json
 ###
 
 ### Actualizar un dato de un paciente con PUT
-PUT http://localhost:4501/api/pacientes/68f69ed4683334303c882514
+PUT http://localhost:4501/api/pacientes/6903c0380411f215dc678666
 Content-Type: application/json
 
 {
+  "fechaNacimiento":"1992-12-20T00:00:00.000Z",
   "obraSocial": "Swiss Medical",
   "telefono": "1155554321"
 }
 ###
 
 ### Borrar un paciente con DELETE
-DELETE http://localhost:4501/api/pacientes/68f6a005fa1967ff989dad0d
+DELETE http://localhost:4501/api/pacientes/6903c0380411f215dc678666
 Content-Type: application/json
+###
+
+##Listar todos los pacientes parciales:
+GET http://localhost:4501/api/pacientes/incompletos
+
+### Borrar TODOS los pacientes
+DELETE http://localhost:4501/api/pacientes
+Content-Type: application/json
+###

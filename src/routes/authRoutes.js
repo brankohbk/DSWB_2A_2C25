@@ -10,4 +10,5 @@ router.get('/logout', logout);
 // Ruta secreta para crear el primer admin (luego bórrala o coméntala)
 router.post('/register-admin', registerInitialUser);
 
+
 export default router;

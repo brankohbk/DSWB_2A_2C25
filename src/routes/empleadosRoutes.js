@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllEmpleados, createEmpleado, getEmpleadoById, updateEmpleado, deleteEmpleado } from '../controllers/empleadosController.js';
+import { getAllEmpleados, createEmpleadoConUsuario, getEmpleadoById, updateEmpleado, deleteEmpleado } from '../controllers/empleadosController.js';
 
 const router = Router();
 
@@ -9,7 +9,7 @@ router
   .get('/', getAllEmpleados)
 
 // POST /api/empleados (nuevo empleado)
-  .post('/', createEmpleado)
+  .post('/', createEmpleadoConUsuario)
 
 // GET empleado by ID
   .get('/:id', getEmpleadoById)

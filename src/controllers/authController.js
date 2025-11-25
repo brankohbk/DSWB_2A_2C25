@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import usuarioModelo from '../models/Usuario.js';
 
 // Renderizar vista de login
 export const showLogin = (req, res) => {
@@ -23,9 +24,16 @@ export const login = async (req, res) => {
         }
 
         // 3. Crear sesión (Guardamos lo esencial, no el pass)
+        let rol = null;
+        const usuarioApp = await usuarioModelo.findOne({ nombreUsuario: user.username });
+        if (usuarioApp) {
+            rol = usuarioApp.rol;
+        }
+
         req.session.user = {
             _id: user._id,
-            username: user.username
+            username: user.username,
+            rol
         };
 
         res.status(200).json({ message: 'Bienvenido al sistema' });

@@ -1,0 +1,91 @@
+extends ../layout
+
+block content
+    div.login-card(style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;")
+        h2 Registro de Paciente
+
+        form(data-ajax data-redirect='/pacientes' method='POST' action='/api/usuarios/registerPaciente' class="login-form")
+            
+            div.form-group
+                label(for="nombre") Nombre
+                input(type='text' name='nombre' id="nombre" required placeholder="Ej: Juan")
+            
+            div.form-group
+                label(for="apellido") Apellido
+                input(type='text' name='apellido' id="apellido" required placeholder="Ej: Pérez")
+            
+            div.form-group
+                label(for="email") Email
+                input(type='email' name='email' id="email" required placeholder="ejemplo@correo.com")
+            
+            div.form-group
+                label(for="dni") DNI
+                input(type='number' name='dni' id="dni" required placeholder="Ej: 12345678")
+            
+            div.form-group
+                label(for="password") Contraseña
+                input(type='password' name='password' id="password" minlength="6" required placeholder="••••••")
+            
+            button(type='submit' class="btn btn-green btn-block") Crear cuenta ✅
+
+            p(style="margin-top: 15px;") ¿Ya tenés cuenta?
+            a(href="/login" class="btn btn-secondary btn-block") Iniciar sesión 🔐
+
+    //- Mensaje de estado
+    #mensaje(style="margin-top: 15px; text-align:center; font-weight:bold;")
+    
+    //- Script de validación / fetch
+    //script.
+        const form = document.querySelector(".login-form");
+        const msg = document.getElementById("mensaje");
+
+        const nombreInput = document.getElementById("nombre");
+        const apellidoInput = document.getElementById("apellido");
+        const emailInput = document.getElementById("email");
+        const dniInput = document.getElementById("dni");
+        const passwordInput = document.getElementById("password");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            msg.innerHTML = "";
+            msg.className = "";
+
+            const data = {
+                nombre: nombreInput.value.trim(),
+                apellido: apellidoInput.value.trim(),
+                email: emailInput.value.trim(),
+                dni: dniInput.value.trim(),
+                password: passwordInput.value.trim(),
+            };
+
+            try {
+                const res = await fetch(form.action, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const json = await res.json();
+
+                if (!res.ok) {
+                    msg.className = "msg error";
+                    msg.innerHTML = json.message || "Error en el registro.";
+                    return;
+                }
+
+                msg.className = "msg success";
+                msg.innerHTML = "Registro exitoso. ¡Bienvenido/a!";
+
+                form.reset();
+
+                if (form.dataset.redirect) {
+                    window.location.href = form.dataset.redirect;
+                }
+
+            } catch (error) {
+                msg.className = "msg error";
+                msg.innerHTML = "Error inesperado. Intente nuevamente.";
+            }
+        });//
+

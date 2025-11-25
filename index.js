@@ -19,6 +19,9 @@ import insumosRoutes from './src/routes/insumosRoutes.js';
 import coberturasRoutes from './src/routes/coberturasRoutes.js';
 import resultadosRoutes from './src/routes/resultadosRoutes.js';
 import fileRoutes from './src/routes/fileRoutes.js';
+import usuariosRoutes from './src/routes/usuariosRoutes.js';
+import registroRoutes from './src/routes/registroRoutes.js';
+import { mostrarFormulario } from './src/controllers/registroViewsController.js';
 import consultasRoutes from './src/routes/consultasRoutes.js';
 
 // --- CONFIGURACIÓN INICIAL ---
@@ -61,6 +64,9 @@ app.use(userToViews);
 
 // --- RUTAS ---
 app.use('/auth', authRoutes);
+app.use('/registro', mostrarFormulario);
+app.use('/api/usuarios', usuariosRoutes);
+
 
 // Aquí inyectamos 'isAuthenticated'. Si no hay sesión, los manda al login.
 
@@ -80,6 +86,8 @@ app.use('/files', fileRoutes);
 // 3. Rutas de Vistas (Frontend) - Llevan isAuthenticated
 // Protegemos la vista principal para que nadie vea el panel sin loguearse
 app.use('/', isAuthenticated, viewRouters);
+
+
 
 // --- MANEJO DE ERRORES ---
 
@@ -103,8 +111,3 @@ if (!fs.existsSync(uploadsDir)) {
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
-
-
-
-
-  
