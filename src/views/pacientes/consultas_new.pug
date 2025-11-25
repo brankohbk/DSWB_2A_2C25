@@ -1,0 +1,36 @@
+extends ../layout
+block content
+    h2 #{title}
+    p Paciente: #{paciente.nombre} #{paciente.apellido}
+    
+    form(data-ajax data-redirect=`/pacientes/${paciente._id}/consultas` method='POST', action='/api/consultas' style='max-width:600px; display:flex; flex-direction:column; gap:15px;')
+        
+        // Campos ocultos
+        input(type='hidden', name='paciente', value=paciente._id) 
+
+        label
+            span Médico Tratante
+            select(name='medico', required)
+                option(value='', selected) Seleccionar Médico
+                each e in medicos
+                    option(value=e._id)= `${e.nombre} - ${e.rol}`
+
+        label
+            span Motivo de la Consulta
+            input(type='text', name='motivoConsulta', required, placeholder="Ej: Dolor abdominal, Control anual")
+
+        label
+            span Diagnóstico Final
+            textarea(name='diagnostico', rows='3', required, placeholder="Ej: Gastritis aguda, Hipertensión esencial controlada")
+
+        label
+            span Prescripción Médica / Medicamentos
+            textarea(name='prescripcion', rows='3', placeholder="Ej: Omeprazol 20mg c/24hs por 7 días")
+        
+        label
+            span Tratamiento / Plan a seguir
+            textarea(name='tratamiento', rows='3', placeholder="Ej: Dieta blanda por 48hs, Próximo control en 3 meses")
+
+        div(style='display:flex; gap:12px; margin-top:20px;')
+            a(href=`/pacientes/${paciente._id}/consultas`, class="btn btn-red") ❌ Cancelar
+            button(type='submit', class="btn btn-green btn-guardar") ✅ Registrar Consulta

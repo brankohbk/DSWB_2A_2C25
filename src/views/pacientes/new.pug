@@ -17,18 +17,21 @@ block content
         label
             span Fecha de Nacimiento
             input(type='date', name='fechaNacimiento', required)
-
+        label Obra Social
+            if coberturas && coberturas.length
+                select(name='obraSocial', required)
+                    option(value='', selected) Seleccione 
+                    each cobertura in coberturas
+                        option(value=cobertura.id)= `${cobertura.prestador} | ${cobertura.plan}`
+                    
+            else
+                p No hay coberturas cargadas            
         label
-            span Obra Social
-            input(type='text', name='obraSocial', required)
-            
+            span Email
+            input(type='email', name='email')
         label
             span Teléfono (Opcional)
             input(type='text', name='telefono')
-            
-        label
-            span Email (Opcional)
-            input(type='email', name='email')
         
         a(href='/pacientes', class="btn btn-red") ❌ Cancelar
         button(type='submit', class="btn btn-green btn-guardar") ✅ Guardar

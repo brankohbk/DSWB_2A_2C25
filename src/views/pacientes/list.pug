@@ -14,7 +14,7 @@ block content
                         th Email 
                         th Teléfono
                         th Editar 
-                        th Estudios
+                        th Historial Clínico
                         th Eliminar
                 tbody 
                     each p in pacientes 
@@ -28,13 +28,20 @@ block content
                                 td= `${dia}/${mes}/${anio}`
                             else
                                 td= `Fecha desconocida`
-                            td= p.obraSocial
+                            if p.obraSocial
+                                - const {prestador, plan} = p.obraSocial                                    
+                                td=  `${prestador || "-"} | ${plan || "-"}`
+                            else
+                                td= 'Sin cobertura'
+
                             td= p.email
                             td= p.telefono
                             td 
                                 a(href= `/pacientes/${p._id}/editar`, class="btn btn-yellow") ✍🏻 Editar
                             td
-                                a(href=`/pacientes/${p._id}/estudios`, class="btn btn-blue") 🔬 Ver/Agregar
+                                a(href=`/pacientes/${p._id}/consultas`, class="btn btn-blue") 👨‍⚕️ Ver/Agregar
+                            //td
+                                //a(href=`/pacientes/${p._id}/estudios`, class="btn btn-blue") 🔬 Ver/Agregar
                             td
                                 // Usa p._id para Mongoose/Mongo
                                 form(data-ajax data-redirect='/pacientes' method='post',action=`/api/pacientes/${p._id}?_method=DELETE`, style='display:inline')

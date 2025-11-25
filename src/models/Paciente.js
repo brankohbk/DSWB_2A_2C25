@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const pacienteSchema = new mongoose.Schema({
   nombre: { type: String, required: true, trim: true },
   apellido: { type: String, required: true, trim: true },
-  dni: { type: String, required: true, unique: false, trim: true },
+  dni: { type: String, required: true, unique: true, trim: true },
   fechaNacimiento: { type: Date},
-  obraSocial: { type: String },
-  telefono: { type: String},
-  email: { type: String, required: true, unique: false, sparse: true },
+  obraSocial: { type: mongoose.Schema.Types.ObjectId, ref:'Cobertura'},
+  telefono: { type: String, trim: true },
+  email: { type: String, trim: true, unique: true, sparse: true },
   registroParcial: { type: Boolean, default: true}
 }, {
   timestamps: true
@@ -16,10 +16,10 @@ const pacienteSchema = new mongoose.Schema({
 const Paciente = mongoose.model('Paciente', pacienteSchema);
 
 async function getAll() {
-  return await Paciente.find();
+  return await Paciente.find().populate("obraSocial");
 }
 async function findById(id) {
-  return await Paciente.findById(id);
+  return await Paciente.findById(id).populate("obraSocial");
 }
 async function create(newPaciente) {
   return await Paciente.create(newPaciente);

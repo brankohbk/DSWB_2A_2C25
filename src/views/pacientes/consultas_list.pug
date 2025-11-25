@@ -1,0 +1,37 @@
+extends ../layout
+block content
+    h2 #{title}
+    p Paciente: #{paciente.nombre} #{paciente.apellido} (DNI: #{paciente.dni})
+
+    div(style="display: flex; gap: 10px; margin-bottom: 20px;")
+      a(href=`/pacientes/${paciente._id}/consultas/nueva`, class="btn btn-green") &plus; Registrar Nueva Consulta
+      a(href=`/pacientes/${paciente._id}/estudios`, class="btn btn-blue") Ver Estudios 🔬
+      a(href='/pacientes', class="btn") ← Volver a Pacientes
+
+    hr
+
+    if historial && historial.length
+        div(class="historial-flex-container" style="margin-top: 20px;")
+            each c in historial
+                div(class="card consulta-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;")
+                    h3(style="margin-top:0; border-bottom: 2px solid #3498db; padding-bottom: 5px;") Consulta del #{new Date(c.fechaConsulta).toLocaleString('es-AR')}
+                    p #[strong Médico:] #{c.medico.nombre}
+                    p #[strong Motivo:] #{c.motivoConsulta}
+                    
+                    div(style="margin-top: 10px;")
+                        h4 Diagnóstico:
+                        p= c.diagnostico
+
+                    if c.prescripcion
+                        h4 Prescripción:
+                        pre(style="background: #ecf0f1; padding: 10px; border-radius: 3px;")= c.prescripcion
+                    
+                    if c.tratamiento
+                        h4 Tratamiento / Plan:
+                        pre(style="background: #ecf0f1; padding: 10px; border-radius: 3px;")= c.tratamiento
+
+                    div(style="margin-top: 15px;")
+                        form(data-ajax data-redirect=`/pacientes/${paciente._id}/consultas` method='post', action=`/api/consultas/${c._id}?_method=DELETE`, style='display:inline')
+                            button(type='submit', class="btn btn-red", onclick=`return confirm("¿Eliminar este registro de consulta?")`) 🗑️ Eliminar Consulta
+    else
+        p No hay registros de consultas médicas en el historial de este paciente.
