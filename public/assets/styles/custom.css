@@ -10,12 +10,13 @@ body {
   flex-direction: column;
 }
 nav {
+  box-sizing: border-box;
   padding: 1rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
   flex-wrap: wrap;
 }
@@ -26,7 +27,6 @@ nav {
     gap: 0.5rem; /* Espacio entre botones del mismo grupo */
     flex-wrap: wrap;
 }
-
 main {
   padding: 1rem;
   display: flex;
@@ -226,25 +226,4 @@ form.login-form {
     font-size: 1.1rem;
     margin-top: 0.5rem;
     justify-content: center;
-}
-
-.historial-flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: stretch;
-}
-
-.consulta-card {
-    flex: 0 0 calc(33.333% - 20px); 
-    max-width: calc(33.333% - 20px);
-    box-sizing: border-box;
-    min-width: 300px;
-}
-
-@media (max-width: 900px) {
-    .consulta-card {
-        flex: 0 0 calc(100% - 20px);
-        max-width: 100%;
-    }
 }
