@@ -14,11 +14,12 @@ block content
             // primero la convertimos a cadena ISO y luego recortamos la parte de la fecha.
             // La corrección fue aplicada a la línea siguiente.
             input(
-                type='date', 
-                name='fechaNacimiento', 
-                required, 
-                //- value=paciente.fechaNacimiento.toISOString().substring(0, 10)
-            )
+                type='date',
+                name='fechaNacimiento',
+                required,
+                value=(paciente.fechaNacimiento ? paciente.fechaNacimiento.toISOString().substring(0, 10) : '')
+                )
+
         label Obra Social
             if coberturas && coberturas.length
                 select(name='obraSocial', required)

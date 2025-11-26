@@ -1,4 +1,6 @@
 extends ../layout
+//CODIGO PARA ACTUALIZAR LA RESERVA DE TURNOS PREVIOS
+
 block content
     h1 Editar turno
     form(data-ajax data-redirect='/turnos' method='post', action=`/api/turnos/${turno.id}?_method=PUT`)

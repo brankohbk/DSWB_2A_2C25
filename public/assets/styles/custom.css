@@ -15,8 +15,8 @@ nav {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  width: 100dvw;
+  gap: 2rem;
+  width: 100%;
   flex-wrap: wrap;
 }
 .user-items {
@@ -26,6 +26,7 @@ nav {
     gap: 0.5rem; /* Espacio entre botones del mismo grupo */
     flex-wrap: wrap;
 }
+
 main {
   padding: 1rem;
   display: flex;

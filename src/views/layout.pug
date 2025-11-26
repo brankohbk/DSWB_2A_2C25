@@ -29,23 +29,23 @@ HTML
                 if (res.ok) location.reload();
                 else alert('Error: ' + (await res.text()));
             });
-    header
-        nav 
-            if user
-                a(href='/', class="btn") 🏠 Inicio        
-                a(href='/empleados', class="btn") 👥 Empleados        
-                a(href='/turnos', class="btn") 📅 Turnos
-                a(href='/coberturas', class="btn") ⚕️ Coberturas
-                a(href='/pacientes', class="btn") 🏥 Pacientes
-                a(href='/insumos', class="btn") 🧪 Insumos
-                a(href='/insumos/alertas', class="btn") 🚨 Stock
-            else
-                span(class="bienvenida") Bienvenido al Sistema
+        header
+            nav 
+                if user
+                    a(href='/', class="btn") 🏠 Inicio        
+                    a(href='/empleados', class="btn") 👥 Empleados        
+                    a(href='/turnos', class="btn") 📅 Turnos
+                    a(href='/coberturas', class="btn") ⚕️ Coberturas
+                    a(href='/pacientes', class="btn") 🏥 Pacientes
+                    a(href='/insumos', class="btn") 🧪 Insumos
+                    a(href='/insumos/alertas', class="btn") 🚨 Stock
+                else
+                    span(class="bienvenida") Bienvenido al Sistema
 
-            div.user-items
-                    if user
+                if user
+                    div.user-items
                         a(href='/auth/logout', class="btn", style="background-color: #e74c3c; color: white;") 🚪 Salir
-                    
+                        
     main
         h1 Clínica San Fulgencio
         block content

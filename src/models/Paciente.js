@@ -4,8 +4,8 @@ const pacienteSchema = new mongoose.Schema({
   nombre: { type: String, required: true, trim: true },
   apellido: { type: String, required: true, trim: true },
   dni: { type: String, required: true, unique: true, trim: true },
-  fechaNacimiento: { type: Date, required: true },
-  obraSocial: { type: mongoose.Schema.Types.ObjectId, ref:'Cobertura', required: true,},
+  fechaNacimiento: { type: Date}, //, required: true 
+  obraSocial: { type: mongoose.Schema.Types.ObjectId, ref:'Cobertura'}, //required: true,
   telefono: { type: String, trim: true },
   email: { type: String, trim: true, unique: true, sparse: true },
   registroParcial: { type: Boolean, default: true}

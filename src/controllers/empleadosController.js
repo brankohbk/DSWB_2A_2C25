@@ -28,9 +28,9 @@ export const getAllEmpleados = async (req, res) => {
 
 //Nueva función para crear empleado y usuario en la base de datos
 export const createEmpleadoConUsuario = async (req, res) => {
-  const { nombre, rol, area, nombreUsuario } = req.body;
+  const { nombre, rol, area,} = req.body;
 
-  if (!nombre || !rol || !area || !nombreUsuario) {
+  if (!nombre || !rol || !area) {
     return res.status(400).json({ message: 'Faltan datos para crear el empleado.' });
   }
 
@@ -43,7 +43,12 @@ export const createEmpleadoConUsuario = async (req, res) => {
     const hashedPassword = await bcrypt.hash(passPorDefecto, 10);
     
     //Paso 3: Crear un nuevo usuario vinculado al empleado
-    const email = `${nombreUsuario}@sanFulgencio.com`.toLowerCase();
+    let nombreUsuario = nombre
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, "")
+
+    const email = `${nombreUsuario.toLowerCase()}@sanFulgencio.com`;
     const newUsuario = await usuarioModelo.create({ 
       nombreUsuario: nombreUsuario, 
       email,
@@ -55,7 +60,7 @@ export const createEmpleadoConUsuario = async (req, res) => {
       //Paso 3BIS: 
       await User.create({
           username: nombreUsuario,
-          password  // sin hashear, el hook del modelo la encripta
+          password: passPorDefecto  // sin hashear, el hook del modelo la encripta
       });
 
     //Paso 4: Enviar respuesta

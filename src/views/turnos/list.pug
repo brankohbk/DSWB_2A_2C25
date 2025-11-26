@@ -29,7 +29,7 @@ block content
                             td= t.estado
                             td= t.observaciones
                             td 
-                                a(href=`/turnos/${t.id}/actualizar`, class="btn btn-yellow") ✍🏻 Editar
+                                a(href=`/turnos/${t._id}/actualizar`, class="btn btn-yellow") ✍🏻 Editar
                             td
                                 form(data-ajax data-redirect='/turnos' method='post', action = `api/turnos/${t._id}?_method=DELETE`)
                                     button(type='submit', class="btn btn-red", onclick=`return confirm("¿Seguro que quiere eliminar el turno con id ${t._id} ?")`) 🗑️ Eliminar
